@@ -1,15 +1,19 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser'
-import config from './config/config'
+import bodyParser from 'body-parser';
+import config from './config/config';
 
 //import routes
 
-import users from './routes/users'
-import profile from './routes/profile'
+import users from './routes/users';
+import profile from './routes/profile';
 
 const app = express();
 
+// Body parser middleware
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Connect to the mlab database
 
@@ -20,8 +24,8 @@ mongoose.connect(config.databaseUrl, {
 
 // use routes
 
-app.use('/api/users', users)
-app.use('/api/profile', profile)
+app.use('/api/users', users);
+app.use('/api/profile', profile);
 
   // Start the server
 //
