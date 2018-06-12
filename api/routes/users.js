@@ -11,11 +11,20 @@ const User = mongoose.model('users')
 
 const router = express.Router()
 
+const validateRegisterInput = require('../helpers/validation/register-validation');
+const validateLoginInput = require('../helpers/validation/login-validation');
+
 // @route GET api/users/register
 // @description Register user
 // @access public
 
 router.post('/register',(req, res) => {
+  const{ errors, isValid } = validateRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email })
     .then(user => {
       if(user) {
@@ -56,6 +65,13 @@ router.post('/register',(req, res) => {
   // @access public
 
   router.post('/login', (req, res) =>  {
+
+    const{ errors, isValid } = validateLoginInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
     const email = req.body.email;
     const password = req.body.password;
 
