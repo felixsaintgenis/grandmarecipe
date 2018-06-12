@@ -2,14 +2,18 @@ import express from 'express';
 import gravatar from 'gravatar';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import passport from 'passport';
+import config from '../config/config';
 
 require('../models/user')
 const User = mongoose.model('users')
 
 const router = express.Router()
 
-router.get('/test', (req, res) => res.json({msg: "User route work"})
-);
+// @route GET api/users/register
+// @description Register user
+// @access public
 
 router.post('/register',(req, res) => {
   User.findOne({ email: req.body.email })
@@ -46,5 +50,57 @@ router.post('/register',(req, res) => {
     }
   })
   });
+
+  // @route GET api/users/login
+  // @description Login User / returning the token
+  // @access public
+
+  router.post('/login', (req, res) =>  {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({ email })
+      .then( user => {
+        //check for user
+        if(!user) {
+          return res.status(404).json({ email: 'User not found'});
+        }
+        //check if the password is correct
+        bcrypt.compare(password, user.password)
+          .then(isMatch => {
+            if(isMatch) {
+              //User matched
+
+              const payload = {
+                id: user.id,
+                name: user.name,
+                avatar: user.avatar
+              };
+
+              //generate a token for signin
+              jwt.sign(
+                payload,
+                config.secret,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  res.json({
+                    success: true,
+                    token: 'Bearer ' + token
+                  });
+              });
+            } else {
+              return res.status(400).json({password: 'Password incorrect'});
+            }
+          });
+      });
+  });
+
+  // @route GET api/users/current
+  // @description return the current user
+  // @access private
+
+  router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+    res.json(req.user)
+  })
 
 export default router;

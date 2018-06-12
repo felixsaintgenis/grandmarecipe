@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import config from './config/config';
+import passport from 'passport';
 
 //import routes
 
@@ -21,6 +22,11 @@ mongoose.connect(config.databaseUrl, {
   })
   .then(() => console.log('Connected to the database'))
   .catch(err => console.log(err));
+
+//passport middleware
+app.use(passport.initialize());
+//Passport Config
+require('./config/passport')(passport);
 
 // use routes
 
