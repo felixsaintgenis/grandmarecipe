@@ -7,3 +7,6 @@ Les utilisateurs pourront consulter les différentes fiches de remèdes qui cont
 Stack technique :
 
 Utilisation de la MERN stack
+Base de donnée :
+
+Le projet utilise MongoDB + mongoose en ce qui concerne la base de donnée et les différentes manipulations faites dessus. La base de donnée est hébergée sur mlab gratuitement.
