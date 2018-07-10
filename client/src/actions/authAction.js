@@ -20,7 +20,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 //loginUser
 
-export const loginUser = (userData) => dispatch => {
+export const loginUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/login', userData)
     .then(res => {
@@ -33,6 +33,7 @@ export const loginUser = (userData) => dispatch => {
       const UserInfoDecoded = jwtDecode(token)
       //set the current user
       dispatch(setCurrentUser(UserInfoDecoded));
+      history.push('/dashboard');
     })
     .catch(err =>
       dispatch({

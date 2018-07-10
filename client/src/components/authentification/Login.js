@@ -17,10 +17,13 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticate) {
-      this.props.history.push('/dashboard')
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
     }
+  }
+  componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({errors: nextProps.errors})
     }
@@ -34,7 +37,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    this.props.loginUser(userData)
+    this.props.loginUser(userData, this.props.history)
   }
 
   onChange(e) {
