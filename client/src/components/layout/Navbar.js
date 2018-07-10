@@ -1,8 +1,40 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import logoutUser from '../../actions/authAction';
 
 class Navbar extends Component {
   render() {
+    { isAuthenticated, user } = this.props.auth;
+
+    const authLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/Login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      </ul>
+    )
+    const guestLinks = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Sign Up
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/Login" className="nav-link">
+            Login
+          </Link>
+        </li>
+      </ul>
+    )
     return (
       <nav className="navbar navbar-expand-sm navbar-dark mb-4">
         <div className="container-fluid">
@@ -27,18 +59,7 @@ class Navbar extends Component {
               </li>
             </ul>
 
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to="/register" className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/Login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-            </ul>
+
           </div>
         </div>
       </nav>
