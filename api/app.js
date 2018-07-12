@@ -8,6 +8,7 @@ import passport from 'passport';
 
 import users from './routes/users';
 import profile from './routes/profile';
+import recipes from './routes/recipes';
 
 const app = express();
 
@@ -32,6 +33,7 @@ require('./config/passport')(passport);
 
 app.use('/api/users', users);
 app.use('/api/profile', profile);
+app.use('/api/recipes', recipes);
 
   // Start the server
 //

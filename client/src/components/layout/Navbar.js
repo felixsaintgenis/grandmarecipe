@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router'
 import { logoutUser } from '../../actions/authAction';
+
 
 class Navbar extends Component {
 
   onLogoutClick(e) {
     e.preventDefault();
-    this.props.logoutUser()
+    this.props.logoutUser(this.props.history)
   }
 
   render() {
@@ -16,15 +18,20 @@ class Navbar extends Component {
     const authLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Favorites
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/register" className="nav-link">
+            Profile
+          </Link>
+        </li>
+        <li className="nav-item">
           <a
             href="#"
             onClick={this.onLogoutClick.bind(this)}
             className="nav-link">
-            <img
-              src={user.avatar}
-              alt={user.name}
-              style= {{ width: '25px'}}
-              title="You must have a gravatar connected to your email to have a profile image" />
             Log out
          </a>
         </li>
@@ -79,4 +86,4 @@ class Navbar extends Component {
 const mapStateToProps = state => ({
     auth: state.auth,
 })
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default withRouter(connect(mapStateToProps, { logoutUser })(Navbar));
