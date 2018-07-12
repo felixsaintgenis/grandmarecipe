@@ -29,7 +29,7 @@ if (localStorage.jwtToken) {
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     // Logout user
-    store.dispatch(logoutUser(this.props.history));
+    store.dispatch(logoutUser());
     // TODO: Clear current Profile
 
     // Redirect to login
@@ -38,6 +38,7 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+
   render() {
     return (
       <Provider store={ store }>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import RecipesList from '../recipes/RecipesList'
 
 class Landing extends Component {
   render() {
@@ -25,6 +26,7 @@ class Landing extends Component {
             </div>
           </div>
         </div>
+        <RecipesList />
       </div>
     );
   }
