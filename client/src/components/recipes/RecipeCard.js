@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 const RecipeCard = ({
   name,
   image_url,
-  product_description
+  product_description,
+  id
 }) => {
   return (
     <div className="card mb-3">
@@ -12,10 +13,10 @@ const RecipeCard = ({
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{product_description}</p>
-        <Link to="/recipe:name" className="btn btn-primary">
-          See more
-        </Link>
-        <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <Link to={`/recipe/${id}`} className="btn btn-info">
+              View more
+            </Link>
+        <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
       </div>
       </div>
   );

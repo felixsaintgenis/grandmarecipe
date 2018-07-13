@@ -14,7 +14,7 @@ class RecipesList extends Component {
 
 
   componentDidMount() {
-    this.props.getAllRecipes()
+    this.props.getAllRecipes();
   };
 
   render() {
@@ -31,6 +31,7 @@ class RecipesList extends Component {
             name={recipe.name}
             image_url={recipe.image_url}
             product_description={recipe.product_description}
+            id={recipe._id}
             />
           </div>
           )
