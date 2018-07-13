@@ -13,6 +13,7 @@ import Footer from './components/layout/Footer'
 import Landing from './components/layout/Landing'
 import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
+import RecipesList from './components/recipes/RecipesList'
 
 import './css/App.css';
 
@@ -43,12 +44,13 @@ class App extends Component {
     return (
       <Provider store={ store }>
       <Router>
-        <div className="landing">
+        <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
           <div className="container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/recipes" component={RecipesList} />
           </div>
           <Footer />
         </div>

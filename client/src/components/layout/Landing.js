@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import RecipesList from '../recipes/RecipesList'
+import '../../css/App.css'
 
 class Landing extends Component {
   render() {
     return (
-      <div className="">
+      <div className="landing">
         <div className="landing-inner text-light">
           <div className="container">
             <div className="row">
@@ -26,7 +27,8 @@ class Landing extends Component {
             </div>
           </div>
         </div>
-        <RecipesList />
+        <div className="recipes">
+          </div>
       </div>
     );
   }

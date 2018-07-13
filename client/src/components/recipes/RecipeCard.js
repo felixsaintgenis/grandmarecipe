@@ -6,15 +6,15 @@ const RecipeCard = ({
   product_description
 }) => {
   return (
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src={image_url} alt="Card image cap"/>
-      <div class="card-body">
-        <h5 class="card-title">{name}</h5>
-        <p class="card-text">{product_description}</p>
+    <div className="card mb-3">
+      <img className="card-img-top" src={image_url} alt="Card image cap" />
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text">{product_description}</p>
         <a href="#" class="btn btn-primary">See more</a>
+        <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
-    </div>
-
+      </div>
   );
 };
 

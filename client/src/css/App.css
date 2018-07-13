@@ -11,10 +11,11 @@ img {
   background-size: cover;
   background-position: center;
   height: 100vh;
+  margin-top: -25px;
 }
 
 .landing-inner {
-  padding-top: 160px;
+  padding-top: 230px;
 }
 
 .card-form {
@@ -38,8 +39,5 @@ img {
   text-align: center;
 }
 .navbar {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.4)
-    )
+  background-color: #000;
 }

@@ -20,10 +20,23 @@ class RecipesList extends Component {
   render() {
 
     return (
-      <div className="recipes-list">
-        {this.props.recipes.recipes.map((recipe) => {
-          console.log(recipe.name)
+      <div className="recipes-page">
+        <div class="container">
+            <div class="row">
+        {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
+          return(
+            <div class="col-4">
+            <RecipeCard
+            key={index}
+            name={recipe.name}
+            image_url={recipe.image_url}
+            product_description={recipe.product_description}
+            />
+          </div>
+          )
         })};
+        </div>
+        </div>
       </div>
     );
   };

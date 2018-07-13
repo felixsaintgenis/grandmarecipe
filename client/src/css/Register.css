@@ -1,3 +1,7 @@
 .register {
-  padding-top: 30px;
+  padding-top: 180px;
+  background-color: #000;
+  background-image: url('../img/landingpage2.jpg');
+  height: 100vh;
+  margin-top: -25px;
 }
