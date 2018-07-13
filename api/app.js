@@ -3,25 +3,22 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import config from './config/config';
 import passport from 'passport';
-
+import cors from 'cors';
 //import routes
 
 import users from './routes/users';
 import profile from './routes/profile';
 import recipes from './routes/recipes';
 
+
 const app = express();
+
+app.use(cors())
 
 // Body parser middleware
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // Connect to the mlab database
 

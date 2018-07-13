@@ -14,6 +14,7 @@ import Landing from './components/layout/Landing'
 import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
 import RecipesList from './components/recipes/RecipesList'
+import Recipe from './components/recipes/Recipe'
 
 import './css/App.css';
 
@@ -51,6 +52,7 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/recipes" component={RecipesList} />
+            <Route exact path="/recipe/:name" component={Recipe} />
           </div>
           <Footer />
         </div>

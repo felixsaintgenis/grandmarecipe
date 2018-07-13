@@ -21,11 +21,11 @@ class RecipesList extends Component {
 
     return (
       <div className="recipes-page">
-        <div class="container">
-            <div class="row">
+        <div className="container">
+            <div className="row">
         {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
           return(
-            <div class="col-4">
+            <div className="col-4">
             <RecipeCard
             key={index}
             name={recipe.name}

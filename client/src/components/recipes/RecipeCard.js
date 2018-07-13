@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const RecipeCard = ({
   name,
@@ -11,7 +12,9 @@ const RecipeCard = ({
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
         <p className="card-text">{product_description}</p>
-        <a href="#" class="btn btn-primary">See more</a>
+        <Link to="/recipe:name" className="btn btn-primary">
+          See more
+        </Link>
         <p className="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
       </div>

@@ -13,7 +13,7 @@ export const getAllRecipes = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_RECIPES,
-        payload: {}
+        payload: []
       })
     );
 };
