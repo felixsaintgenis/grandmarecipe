@@ -54,7 +54,6 @@ class App extends Component {
             <Route exact path="/recipes" component={RecipesList} />
             <Route exact path="/recipe/:id" component={Recipe} />
           </div>
-          <Footer />
         </div>
      </Router>
    </Provider>
