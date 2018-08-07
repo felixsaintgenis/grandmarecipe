@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 import store from './store/store'
@@ -7,7 +7,9 @@ import store from './store/store'
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './helpers/setAuthToken';
 import { setCurrentUser, logoutUser } from './actions/authAction';
+import { clearCurrentProfile } from './actions/profileAction';
 
+import PrivateRoute from './components/common/PrivateRoute'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Landing from './components/layout/Landing'
@@ -15,6 +17,7 @@ import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
 import RecipesList from './components/recipes/RecipesList'
 import Recipe from './components/recipes/Recipe'
+import Dashboard  from './components/dashboard/Dashboard'
 
 import './css/App.css';
 
@@ -30,6 +33,8 @@ if (localStorage.jwtToken) {
   // Check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
+    // clear profile before logout
+    store.dispatch(clearCurrentProfile  ());
     // Logout user
     store.dispatch(logoutUser());
     // TODO: Clear current Profile
@@ -45,7 +50,7 @@ class App extends Component {
     return (
       <Provider store={ store }>
       <Router>
-        <div className="App">
+        <div className="App"> 
           <Navbar />
           <Route exact path="/" component={Landing} />
           <div className="app-container">
@@ -53,6 +58,9 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/recipes" component={RecipesList} />
             <Route exact path="/recipe/:id" component={Recipe} />
+            <Switch>
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          </Switch>
           </div>
         </div>
      </Router>
