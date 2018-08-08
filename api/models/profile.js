@@ -10,9 +10,13 @@ const ProfileSchema = new Schema({
   handle: {
     type: String,
     required: true,
+  },
+  skills: {
+    type: String,
+    required: true,
     max:40
   },
-  location: {
+  country: {
     type: String
   },
   status: {
@@ -21,17 +25,6 @@ const ProfileSchema = new Schema({
   },
   bio: {
     type: String
-  },
-  social: {
-    facebook: {
-      type: String
-    },
-    twitter: {
-      type: String
-    },
-    youtube: {
-      type: String
-    }
   },
   date: {
     type: Date,

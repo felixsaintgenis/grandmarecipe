@@ -54,15 +54,11 @@ router.post(
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.skills) profileFields.skills = req.body.skills;
+    if (req.body.location) profileFields.country = req.body.country;
     if (req.body.bio) profileFields.bio = req.body.bio;
     if (req.body.status) profileFields.status = req.body.status;
 
-    // Social
-    profileFields.social = {};
-    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {

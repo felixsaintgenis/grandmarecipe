@@ -17,6 +17,7 @@ import Login from './components/authentification/Login'
 import RecipesList from './components/recipes/RecipesList'
 import Recipe from './components/recipes/Recipe'
 import Dashboard  from './components/dashboard/Dashboard'
+import CreateProfile  from './components/dashboard/CreateProfile'
 
 import './css/App.css';
 
@@ -60,6 +61,9 @@ class App extends Component {
             <Switch>
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
           </Switch>
+          <Switch>
+          <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+        </Switch>
           </div>
         </div>
      </Router>
