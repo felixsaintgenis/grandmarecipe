@@ -11,7 +11,6 @@ import { clearCurrentProfile } from './actions/profileAction';
 
 import PrivateRoute from './components/common/PrivateRoute'
 import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
 import Landing from './components/layout/Landing'
 import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
@@ -50,7 +49,7 @@ class App extends Component {
     return (
       <Provider store={ store }>
       <Router>
-        <div className="App"> 
+        <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
           <div className="app-container">

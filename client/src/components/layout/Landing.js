@@ -7,6 +7,7 @@ class Landing extends Component {
   render() {
     return (
       <div className="landing">
+      <div className="header-background">
         <div className="landing-inner text-light">
           <div className="container">
             <div className="row">
@@ -27,8 +28,10 @@ class Landing extends Component {
             </div>
           </div>
         </div>
-        <div className="recipes">
-          </div>
+      </div>
+      <div className="mt-4">
+      <RecipesList />
+      </div>
       </div>
     );
   }

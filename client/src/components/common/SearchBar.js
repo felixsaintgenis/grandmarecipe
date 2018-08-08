@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import makeAnimated from 'react-select/lib/animated';
 import TextInput from '../common/TextInput';
 import RecipeCard from '../recipes/RecipeCard'
 import { getAllRecipes } from '../../actions/recipesAction';
@@ -10,9 +12,11 @@ class SearchBar extends Component {
     super();
     this.state = {
       searchContent: '',
+      tagContent: '',
       recipeArray: []
     };
-    this.displayMatches = this.displayMatches.bind(this);
+    this.displaySearchMatches = this.displaySearchMatches.bind(this);
+    this.displayTagMatches = this.displayTagMatches.bind(this);
   };
 
 
@@ -26,25 +30,63 @@ class SearchBar extends Component {
       if (wordToMatch )
       return recipe.name.match(regex)
     })
-  }
+   }
 
-  async displayMatches (e) {
-  await this.setState({ searchContent: e.target.value });
-    const recipeArray = await this.findMatches(this.state.searchContent, this.props.recipes.recipes);
-    this.setState({ recipeArray: recipeArray })
+   searchWithTag (wordToMatch, recipes) {
+     return recipes.filter(recipe => {
+       const regex = new RegExp(wordToMatch, 'gi');
+       if (wordToMatch)
+       return recipe.tags.toString().match(regex)
+     })
     }
 
+  async displaySearchMatches (e) {
+  await this.setState({ searchContent: e.target.value });
+  const recipeArray = await this.findMatches(this.state.searchContent, this.props.recipes.recipes);
+    this.setState({ recipeArray: recipeArray })
+    }
+  async displayTagMatches (e) {
+  await this.setState({ tagContent: e.target.value });
+  const newRecipeArray = await this.searchWithTag(this.state.tagContent, this.props.recipes.recipes);
+    this.setState({ recipeArray: newRecipeArray })
+    }
   render() {
-
+    const options = [
+      { value: 'jus', label: 'jus' },
+      { value: 'detox', label: 'detox' },
+      { value: 'antioxidant', label: 'antioxidant' },
+      { value: 'smoothie', label: 'smoothie' },
+      { value: 'thé', label: 'thé' },
+       { value: 'energy', label: 'energy' }
+    ]
     return (
       <div className="search-component">
+        <div className="container">
+        <div className="row">
+          <div className="col-12">
         <TextInput
           placeholder="search by name"
           name="searchBar"
           type="text"
-          onKeyUp={this.displayMatches}
+          onKeyUp={this.displaySearchMatches}
         />
-        {this.state.recipeArray.length != 0 ? <h2>Search results</h2> : null}
+        </div>
+        </div>
+        <div className="row">
+        <div className="col-12">
+        <div class="form-group">
+          <Select
+            closeMenuOnSelect={false}
+            components={makeAnimated()}
+            isMulti
+            options={options}
+            onChange={this.displayTagMatches}
+          />
+    </div>
+    </div>
+    </div>
+  </div>
+        {this.state.recipeArray.length !== 0 ? <h2>Search results</h2> : null}
         <div className="row">
     {this.state.recipeArray && this.state.recipeArray.map((recipe, index) => {
       return(
@@ -60,7 +102,7 @@ class SearchBar extends Component {
       )
     })}
     </div>
-    {this.state.recipeArray.length != 0 ? <hr /> : null}
+    {this.state.recipeArray.length !== 0 ? <hr /> : null}
       </div>
     );
   };

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPES, GET_RECIPE, GET_ERRORS } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE } from '../actions/action-types';
 
 export const getAllRecipes = () => dispatch => {
 
@@ -24,7 +24,7 @@ export const getRecipeById = id => dispatch => {
     baseURL: 'http://localhost:5000/api/recipes/',
     /* other custom settings */
   });
-  
+
   axiosInstance
     .get(id)
     .then(res =>

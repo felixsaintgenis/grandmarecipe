@@ -26,7 +26,7 @@ class RecipesList extends Component {
           <div className="row">
             <SearchBar />
             </div>
-            <h2>All the remedies</h2> 
+            <h2>All the remedies</h2>
             <div className="row">
         {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
           return(
@@ -37,6 +37,7 @@ class RecipesList extends Component {
             image_url={recipe.image_url}
             product_description={recipe.product_description}
             id={recipe._id}
+            tags={recipe.tags}
             />
           </div>
           )

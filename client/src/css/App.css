@@ -2,7 +2,7 @@ img {
   width: 100%;
 }
 
-.landing {
+.header-background {
   position: relative;
   background: linear-gradient(
       rgba(0, 0, 0, 0.2),
@@ -10,12 +10,12 @@ img {
     ), url('../img/landingpage.jpg') no-repeat;
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 65vh;
   margin-top: -25px;
 }
 
 .landing-inner {
-  padding-top: 230px;
+  padding-top: 140px;
 }
 
 .card-form {
