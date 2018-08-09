@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { getCurrentProfile } from '../../actions/profileAction';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileAction';
 import Spinner from '../common/Spinner'
+import Profile from './Profile'
 import '../../css/Profile.css';
 
 class Dashboard extends Component {
@@ -21,7 +22,20 @@ class Dashboard extends Component {
       dashboardContent = <Spinner />
     } else {
       if(Object.keys(profile).length > 0) {
-        dashboardContent = <h4>Display profile</h4>
+        dashboardContent =
+          <div className="row">
+            <div>
+          <button
+              onClick={this.props.deleteAccount}
+              className="btn btn-danger mt-4"
+            >
+              Delete My Account
+          </button>
+          </div>
+          <div className="mx-auto mt-5">
+            <Profile />
+          </div>
+      </div>
       } else {
         dashboardContent = (
           <div>
@@ -69,4 +83,4 @@ const mapStateToProps = state => ({
   profile: state.profile,
   auth: state.auth
 });
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
