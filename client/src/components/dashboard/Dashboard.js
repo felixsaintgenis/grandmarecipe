@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { getCurrentProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner'
+import '../../css/Profile.css';
 
 class Dashboard extends Component {
 
@@ -25,7 +26,6 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">Welcome { user.name }</p>
-            <p>Please complete your profile information here: </p>
             <Link to="/create-profile" className="btn btn-lg btn-info">
               Add informations
             </Link>
@@ -36,15 +36,31 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard">
+      <div className="header-background-profile">
+      <div className="landing-inner-profile text-light">
         <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <h1 className="display-4">Profile</h1>
-              {dashboardContent}
-            </div>
+            <div className="col-md-12 text-center">
+              <h1 className="display-5 mb-1">Profile</h1>
+              <p className="lead">
+                {' '}
+                Welcome {user.name}.
+              </p>
+
           </div>
         </div>
+
       </div>
+        </div>
+        </div>
+        <div className="container">
+        <div className="row mt-4">
+          {dashboardContent}
+          </div>
+          </div>
+
+          </div>
+
     )
   }
 }

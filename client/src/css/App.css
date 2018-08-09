@@ -10,12 +10,12 @@ img {
     ), url('../img/landingpage.jpg') no-repeat;
   background-size: cover;
   background-position: center;
-  height: 65vh;
-  margin-top: -25px;
+  height: 60vh;
+  margin-top: -100px;
 }
 
 .landing-inner {
-  padding-top: 140px;
+  padding-top: 190px;
 }
 
 .card-form {
@@ -38,6 +38,9 @@ img {
   padding: 1rem;
   text-align: center;
 }
+.navbar-dark .navbar-nav .nav-link {
+  color: #FFF;
+}
 .navbar {
-  background-color: #000;
+  z-index: 100;
 }

@@ -15,6 +15,7 @@ import Landing from './components/layout/Landing'
 import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
 import RecipesList from './components/recipes/RecipesList'
+import Recipes from './components/recipes/Recipes'
 import Recipe from './components/recipes/Recipe'
 import Dashboard  from './components/dashboard/Dashboard'
 import CreateProfile  from './components/dashboard/CreateProfile'
@@ -56,7 +57,7 @@ class App extends Component {
           <div className="app-container">
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/recipes" component={RecipesList} />
+            <Route exact path="/recipes" component={Recipes} />
             <Route exact path="/recipe/:id" component={Recipe} />
             <Switch>
             <PrivateRoute exact path="/dashboard" component={Dashboard} />

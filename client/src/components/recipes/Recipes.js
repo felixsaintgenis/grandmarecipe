@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import RecipeCard from './RecipeCard'
+import RecipeList from './RecipesList'
 import SearchBar from '../common/SearchBar'
 import { getAllRecipes } from '../../actions/recipesAction';
 import '../../css/Recipe.css';
@@ -22,23 +22,26 @@ class RecipesList extends Component {
 
     return (
       <div className="recipes-page">
-        <div className="container">
+        <div className="header-background-profile">
+        <div className="landing-inner-profile text-light">
+          <div className="container">
             <div className="row">
-        {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
-          return(
-            <div className="col-4">
-            <RecipeCard
-            key={index}
-            name={recipe.name}
-            image_url={recipe.image_url}
-            product_description={recipe.product_description}
-            id={recipe._id}
-            tags={recipe.tags}
-            />
+              <div className="col-md-12 text-center">
+                <h1 className="display-5 mb-1">All the remedies</h1>
+                <p className="lead">
+                </p>
+
+            </div>
           </div>
-          )
-        })}
+
         </div>
+          </div>
+          </div>
+        <div className="container">
+          <div className="row mt-5">
+            <SearchBar />
+            </div>
+            <RecipeList />
         </div>
       </div>
     );
