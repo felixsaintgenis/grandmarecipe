@@ -1,11 +1,8 @@
 .header-background-profile {
   position: relative;
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0.2)
-    ), url('../img/landingpage.jpg') no-repeat;
+  background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../img/landingpage6.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: top;
   height: 30%;
   margin-top: -100px;
   z-index: -10;

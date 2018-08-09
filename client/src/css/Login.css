@@ -1,7 +1,10 @@
 .login {
-  padding-top: 180px;
+  padding-top: 240px;
   background-color: #000;
-  background-image: url('../img/landingpage.jpg');
+background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url('../img/landingpage5.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
   height: 100vh;
   margin-top: -80px;
 }

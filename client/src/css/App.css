@@ -7,15 +7,15 @@ img {
   background: linear-gradient(
       rgba(0, 0, 0, 0.2),
       rgba(0, 0, 0, 0.2)
-    ), url('../img/landingpage.jpg') no-repeat;
+    ), url('../img/landingpage5.jpg') no-repeat;
   background-size: cover;
   background-position: center;
-  height: 60vh;
+  height: 95vh;
   margin-top: -100px;
 }
 
 .landing-inner {
-  padding-top: 190px;
+  padding-top: 230px;
 }
 
 .card-form {

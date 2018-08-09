@@ -29,6 +29,7 @@ class RecipesList extends Component {
               <div className="col-md-12 text-center">
                 <h1 className="display-5 mb-1">All the remedies</h1>
                 <p className="lead">
+                  Everything you need is here
                 </p>
 
             </div>
