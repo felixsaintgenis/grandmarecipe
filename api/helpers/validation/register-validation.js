@@ -30,7 +30,7 @@ module.exports = function validatorRegisterInput(data) {
     errors.password = 'password field is required';
   }
 
-  if(!Validator.isLength(data.password, { min: 6, max: 100 })){
+  if(!Validator.isLength(data.password, { min: 2, max: 100 })){
     errors.password = 'Password must be at least 6 characters';
   }
 

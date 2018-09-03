@@ -10,6 +10,7 @@ import cors from 'cors';
 import users from './routes/users';
 import profile from './routes/profile';
 import recipes from './routes/recipes';
+import posts from './routes/posts';
 
 
 const app = express();
@@ -38,6 +39,7 @@ require('./config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/recipes', recipes);
+app.use('/api/posts', posts);
 
   // Start the server
 //

@@ -22,8 +22,8 @@ const RecipeSchema = new Schema({
   published_date: {
     type: Date,
     default: Date.now
-  }
-
+  },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
 });
 
 mongoose.model ('recipes', RecipeSchema)

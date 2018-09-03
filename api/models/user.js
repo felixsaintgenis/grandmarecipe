@@ -26,7 +26,8 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }]
 
 });
 

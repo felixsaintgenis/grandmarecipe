@@ -5,7 +5,8 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className="profile">
+      <div className="profile mt-5">
+        <h2>Informations:</h2>
               <div class="card-group mt-5">
   <div class="card">
     <div class="card-body">
@@ -25,24 +26,24 @@ class Profile extends Component {
       <p class="card-text">{this.props.profile.profile.status}</p>
     </div>
   </div>
+  <div class="card">
+  <div class="card-body">
+  <h5 class="card-title">skills</h5>
+  <p class="card-text">{this.props.profile.profile.skills}</p>
+  </div>
+  </div>
+  <div class="card">
+  <div class="card-body">
+  <h5 class="card-title">création du compte</h5>
+  <p class="card-text">{this.props.profile.profile.date}</p>
+  </div>
+  </div>
 </div>
 <div class="card-group mt-5">
 <div class="card">
 <div class="card-body">
-<h5 class="card-title">skills</h5>
-<p class="card-text">{this.props.profile.profile.skills}</p>
-</div>
-</div>
-<div class="card">
-<div class="card-body">
 <h5 class="card-title">bio</h5>
 <p class="card-text">{this.props.profile.profile.bio}</p>
-</div>
-</div>
-<div class="card">
-<div class="card-body">
-<h5 class="card-title">création du compte</h5>
-<p class="card-text">{this.props.profile.profile.date}</p>
 </div>
 </div>
 </div>
