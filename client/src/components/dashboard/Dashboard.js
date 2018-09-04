@@ -29,8 +29,11 @@ class Dashboard extends Component {
               onClick={this.props.deleteAccount}
               className="btn btn-danger mt-4"
             >
-              Delete My Account
+              Supprimer mon compte
           </button>
+          <Link to="/create-recipe" className="btn btn-primary ml-4 mt-4">
+            Ajouter une recette
+          </Link>
           </div>
           <div className="mx-auto mt-5">
             <Profile />

@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import TextInput from '../common/TextInput';
 import TextAreaInput from '../common/TextAreaInput';
+import SelectListGroup from '../common/SelectListGroup';
 import { createRecipe } from '../../actions/recipesAction'
 
 class CreateRecipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-       country: '',
-       skills: '',
-       bio: '',
-       status: '',
-       handle: '',
+       name: '',
+       image_url: '',
+       tags: [],
+       ingredients: [],
+       product_description: '',
+       product_recipe: '',
        errors: {}
     }
       this.onChange = this.onChange.bind(this)
@@ -30,14 +32,16 @@ class CreateRecipe extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const profileData = {
-      handle: this.state.handle,
-      country: this.state.country,
-      skills: this.state.skills,
-      bio: this.state.bio,
-      status: this.state.status,
+    const recipeData = {
+      name: this.state.name,
+      image_url: this.state.image_url,
+      tags: this.state.tags,
+      ingredients: this.state.ingredients,
+      product_description: this.state.product_description,
+      product_recipe: this.state.product_recipe
+
     };
-    this.props.createProfile(profileData, this.props.history);
+    this.props.createRecipe(recipeData);
   }
 
   onChange(e) {
@@ -48,10 +52,11 @@ class CreateRecipe extends Component {
     const { errors } = this.state;
     const options = [
       { label: '* Select a user status', value: 0 },
-      { label: 'mamie cuisine', value: 'mamie cuisine' },
-      { label: 'curieux', value: 'curieux' },
-      { label: 'chef pro', value: 'chef pro' },
-      { label: 'débrouillard/débrouillarde', value: 'débrouillard/débrouillarde' },
+      { label: 'thé', value: 'thé' },
+      { label: 'antioxydant', value: 'antioxydant' },
+      { label: 'energy', value: 'energy' },
+      { label: 'jus', value: 'jus' },
+      { label: 'smoothie', value: 'smoothie' }
     ];
 
     return (
@@ -59,53 +64,58 @@ class CreateRecipe extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create your Profile</h1>
-              <p className="lead text-center">Add info to your profile</p>
+              <h1 className="display-4 text-center">Proposer une nouvelle recette </h1>
               <small className="d-block pb-3">*require field</small>
             </div>
           </div>
         </div>
         <form className="col-md-6 m-auto" noValidate onSubmit={this.onSubmit}>
           <TextInput
-          placeholder="handle"
-          name="handle"
-          value={this.state.handle}
+          placeholder="votre nom"
+          name="name"
+          value={this.state.name}
           onChange={this.onChange}
-          error={errors.handle}
-          info="Choose a unique pseudonyme"
+          error={errors.name}
           />
           <TextInput
-            placeholder="your country"
-            name="country"
+            placeholder="copier/coller l'image de votre remède"
+            name="image_url"
             type="text"
-            value={this.state.country}
+            value={this.state.image_url}
             onChange={this.onChange}
-            error={errors.country}
+            error={errors.image_url}
+            info="Seulement les images en dessous de 2mb sont acceptées"
           />
           <SelectListGroup
-            placeholder="status"
-            name="status"
-            value={this.state.status}
+            placeholder="mot-clés..."
+            name="tags"
+            value={this.state.tags}
             onChange={this.onChange}
             options={options}
-            error={errors.status}
-            info="Give us an idea of hat you are doing here"
+            error={errors.tags}
+            info="seulement un tag pour l'instant"
             />
             <TextInput
-            placeholder="skills"
-            name="skills"
-            value={this.state.skills}
+            placeholder="ingrédients..."
+            name="ingredients"
+            value={this.state.ingredients}
             onChange={this.onChange}
-            error={errors.skills}
-            info="What are you capable of ?"
+            error={errors.ingredients}
+            info="séparez les ingrédients d'une virgule et sans espace"
             />
             <TextAreaInput
-            placeholder="bio"
-            name="bio"
-            value={this.state.bio}
+            placeholder="description de votre produit"
+            name="product_description"
+            value={this.state.product_description}
             onChange={this.onChange}
-            error={errors.bio}
-            info="Tell us more about your story"
+            error={errors.product_description}
+            />
+            <TextAreaInput
+            placeholder="description de la recette"
+            name="product_description"
+            value={this.state.product_recipe}
+            onChange={this.onChange}
+            error={errors.product_recipe}
             />
             <input
                   type="submit"
@@ -118,7 +128,6 @@ class CreateRecipe extends Component {
   }
 }
 const mapStateToProps = state => ({
-  profile: state.profile,
   errors: state.errors
 })
 

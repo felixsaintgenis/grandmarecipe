@@ -19,6 +19,8 @@ import Recipes from './components/recipes/Recipes'
 import Recipe from './components/recipes/Recipe'
 import Dashboard  from './components/dashboard/Dashboard'
 import CreateProfile  from './components/dashboard/CreateProfile'
+import CreateRecipe  from './components/recipes/CreateRecipe'
+
 
 import './css/App.css';
 
@@ -65,6 +67,9 @@ class App extends Component {
           <Switch>
           <PrivateRoute exact path="/create-profile" component={CreateProfile} />
         </Switch>
+        <Switch>
+        <PrivateRoute exact path="/create-recipe" component={CreateRecipe} />
+      </Switch>
           </div>
         </div>
      </Router>
