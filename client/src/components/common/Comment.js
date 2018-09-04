@@ -9,7 +9,7 @@ const Comment = ({
 }) => {
   return (
     <div>
-    <div className="col-sm-5">
+    <div className="col-md-12">
 <div className="panel panel-default">
 <div className="panel-heading">
 <strong>{username}</strong> <span className="text-muted">{date}</span>
@@ -20,9 +20,6 @@ const Comment = ({
 </div>
 </div>
 <div className="col-sm-1">
-<div className="thumbnail">
-<img className="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-</div>
 </div>
 </div>
   );

@@ -3,6 +3,7 @@
 }
 .panel {
 	position:relative;
+  margin-bottom: 20px;
 }
 .panel>.panel-heading:after,.panel>.panel-heading:before{
 	position:absolute;

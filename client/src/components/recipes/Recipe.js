@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Comment from '../common/Comment';
+import CommentModal from '../common/CommentModal';
 import {getRecipeById} from '../../actions/recipesAction';
 import {getCommentsByRecipeId} from '../../actions/commentsAction';
 
@@ -18,7 +19,7 @@ class Recipe extends Component {
       <div className="recipes-page-individual">
         <div className="header-background-profile">
           <div className="landing-inner-profile text-light">
-            <div className="container">
+            <div className="container-fluid">
               <div className="row">
                 <div className="col-md-12 text-center">
                   <h1 className="display-5 mb-1">{this.props.recipe.name}</h1>
@@ -32,10 +33,10 @@ class Recipe extends Component {
             </div>
           </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
           <div class="row mt-5">
 
-            <div class="col-md-8 mx-auto">
+            <div class="col-md-5 mx-auto">
               <img class="img-fluid mb-4" src={this.props.recipe.image_url} alt=""/>
             </div>
 
@@ -63,6 +64,8 @@ class Recipe extends Component {
           <div class="row">
             <div class="col-lg-12 mx-auto text-center">
               <h2 class="section-heading text-black">Commentaires</h2>
+              <hr class="light my-4"/>
+              <CommentModal />
               {this.props.comments && this.props.comments.map((comment, index) => {
                 return(
                   <Comment body={comment.body} username={comment.user.name} date={comment.created_at} />
