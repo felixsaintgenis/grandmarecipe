@@ -57,11 +57,22 @@ class CreateProfile extends Component {
 
     return (
       <div className="create-profile">
-        <div className="container">
-          <div className="row">
+        <div className="header-background-profile">
+        <div className="landing-inner-profile text-light">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <h1 className="display-5 mb-1">Votre profil</h1>
+            </div>
+          </div>
+
+        </div>
+          </div>
+          </div>
+        <div className="container mt-4">
+          <div className="row mt-4">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create your Profile</h1>
-              <p className="lead text-center">Add info to your profile</p>
+              <p className="lead text-center">Ajoutez des informations à votre profil.</p>
               <small className="d-block pb-3">*require field</small>
             </div>
           </div>

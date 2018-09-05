@@ -51,7 +51,7 @@ class CreateRecipe extends Component {
   render() {
     const { errors } = this.state;
     const options = [
-      { label: '* Select a user status', value: 0 },
+      { label: '* Select a tag', value: 0 },
       { label: 'thé', value: 'thé' },
       { label: 'antioxydant', value: 'antioxydant' },
       { label: 'energy', value: 'energy' },
@@ -61,24 +61,35 @@ class CreateRecipe extends Component {
 
     return (
       <div className="create-profile">
-        <div className="container">
-          <div className="row">
+        <div className="header-background-profile">
+        <div className="landing-inner-profile text-light">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-12 text-center">
+                <h1 className="display-5 mb-1">Nouvelle recette</h1>
+            </div>
+          </div>
+
+        </div>
+          </div>
+          </div>
+        <div className="container mt-4">
+          <div className="row mt-4">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Proposer une nouvelle recette </h1>
-              <small className="d-block pb-3">*require field</small>
+            <p className="lead text-center">Ajouter une nouvelle recette !</p>
             </div>
           </div>
         </div>
         <form className="col-md-6 m-auto" noValidate onSubmit={this.onSubmit}>
           <TextInput
-          placeholder="votre nom"
+          placeholder="nom de la recette"
           name="name"
           value={this.state.name}
           onChange={this.onChange}
           error={errors.name}
           />
           <TextInput
-            placeholder="copier/coller l'image de votre remède"
+            placeholder="copier/coller l'url de l'image"
             name="image_url"
             type="text"
             value={this.state.image_url}
@@ -87,7 +98,7 @@ class CreateRecipe extends Component {
             info="Seulement les images en dessous de 2mb sont acceptées"
           />
           <SelectListGroup
-            placeholder="mot-clés..."
+            placeholder="mot-clés de votre remède..."
             name="tags"
             value={this.state.tags}
             onChange={this.onChange}
@@ -96,7 +107,7 @@ class CreateRecipe extends Component {
             info="seulement un tag pour l'instant"
             />
             <TextInput
-            placeholder="ingrédients..."
+            placeholder="ingrédients de votre remède..."
             name="ingredients"
             value={this.state.ingredients}
             onChange={this.onChange}
@@ -104,15 +115,15 @@ class CreateRecipe extends Component {
             info="séparez les ingrédients d'une virgule et sans espace"
             />
             <TextAreaInput
-            placeholder="description de votre produit"
+            placeholder="description de votre produit..."
             name="product_description"
             value={this.state.product_description}
             onChange={this.onChange}
             error={errors.product_description}
             />
             <TextAreaInput
-            placeholder="description de la recette"
-            name="product_description"
+            placeholder="description de la recette..."
+            name="product_recipe"
             value={this.state.product_recipe}
             onChange={this.onChange}
             error={errors.product_recipe}
