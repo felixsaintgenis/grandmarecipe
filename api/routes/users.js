@@ -90,7 +90,8 @@ router.post('/register',(req, res) => {
               const payload = {
                 id: user.id,
                 name: user.name,
-                avatar: user.avatar
+                avatar: user.avatar,
+                likes: user.likes
               };
 
               //generate a token for signin
@@ -110,6 +111,37 @@ router.post('/register',(req, res) => {
           });
       });
   });
+
+          // router.post('/like/:recetteId/:userId', (req, res) => {
+          //     const { recetteId, userId } = req.params;
+          //
+          //     Recette.findById(recetteId, (err, recette) => {
+          //         if (err) return console.log(err);
+          //
+          //         const { likedBy } = recette.recetteInfos;
+          //
+          //         if (!likedBy.includes(userId)) {
+          //             likedBy.push(userId);
+          //             recette.save();
+          //         } else {
+          //             const itemIndex = likedBy.indexOf(userId);
+          //             likedBy.splice(itemIndex, 1);
+          //             recette.save();
+          //         }
+          //         return res.json(recette);
+          //     });
+          // });
+
+
+              // { $push: { likes: req.params.recipeid } },
+              // (err, comment) => {
+              //     err ?  return res.send(err)
+              //         : res.json({ "message": "registration of your like successful" })
+
+
+
+
+
 
   // @route GET api/users/current
   // @description return the current user

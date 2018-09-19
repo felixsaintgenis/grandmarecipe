@@ -9,3 +9,12 @@
 .card-img-top {
   height: 250px;
 }
+
+.fa-thumbs-up:hover {
+  color: #46B1C9;
+  cursor: pointer;
+}
+.fa-heart:hover {
+  color: #E05263;
+  cursor: pointer;
+}

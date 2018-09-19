@@ -15,7 +15,7 @@ router.get('/:id',(req,res)=> {
    .populate('user')
    .exec((err, comment) => {
      if(err){
-       res.send(err);
+       return res.send(err);
      }
      res.json(comment);
    });
@@ -27,7 +27,7 @@ router.get('/:id',(req,res)=> {
      .populate('user')
      .exec((err, comment) => {
        if(err){
-         res.send(err);
+         return res.send(err);
        }
        res.json(comment);
      });
@@ -44,11 +44,11 @@ router.get('/:id',(req,res)=> {
 //
 //
 //        comment.save(function(err, comment) {
-//            if (err) { res.send(err); }
+//            if (err) { return res.send(err); }
 //
 //            req.recipe.comments.push(comment);
 //            req.recipe.save(function(err, recipe) {
-//                if (err) { res.send(err); }
+//                if (err) { return res.send(err); }
 //
 //                res.json(comment);
 //            });

@@ -74,7 +74,7 @@ class SearchBar extends Component {
         </div>
         <div className="row">
         <div className="col-12">
-        <div class="form-group">
+        <div className="form-group">
           <Select
             closeMenuOnSelect={false}
             components={makeAnimated()}

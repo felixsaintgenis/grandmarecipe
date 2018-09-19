@@ -20,7 +20,7 @@ const router = express.Router()
 router.get('/',(req, res) => {
   Recipe.find({},(err,recipes)=>{
      if (err){
-       res.send(err);
+       return res.send(err);
      }
      res.json(recipes);
    });
@@ -31,7 +31,7 @@ router.get('/',(req, res) => {
     .populate('comments')
     .exec((err, recipe) => {
       if(err){
-        res.send(err);
+        return res.send(err);
       }
       res.json(recipe);
     });
@@ -50,7 +50,7 @@ router.get('/',(req, res) => {
       // Return any errors with 400 status
       return res.status(400).json(errors);
     }
-    
+
     const newRecipe = new Recipe({
       name: req.body.name,
       image_url: req.body.image_url,
@@ -74,9 +74,10 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
       created_at: Date.now()
     });
     // sauvegarde du commentaire dans la collection
+    console.log(newComment)
     newComment.save((err, comment) => {
-        console.log(comment)
-        if (err) { res.send(err) }
+        if (err) { console.log(err) }
+
 
         // on trouve l'owner en question pour mettre à jour le tableau de commentaires
         Recipe.findByIdAndUpdate(
@@ -89,7 +90,28 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
 
             })
           })
-});
+        });
+
+
+        router.post('/:recipeid/:userid/like', (req, res) => {
+
+                Recipe.findById(req.params.recipeid, (err, recipe) => {
+                  if (err){
+                    return res.send(err);
+                    console.log(recipe.likes)
+                  };
+                  if (recipe.likes.includes(req.params.userid)) {
+                  const itemIndex = recipe.likes.indexOf(req.params.userid)
+                  recipe.likes.splice(itemIndex, 1);
+                  recipe.save();
+
+                } else {
+                    recipe.likes.push(req.params.userid);
+                    recipe.save();
+
+                  }
+      })
+                });
 
   // @route GET api/users/current
   // @description return the current user

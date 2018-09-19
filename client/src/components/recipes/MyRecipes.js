@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipeCard from './RecipeCard'
-import { getAllRecipes } from '../../actions/recipesAction';
+import SearchBar from '../common/SearchBar'
+import { getMyRecipes } from '../../actions/recipesAction';
 import '../../css/Recipe.css';
 
 class RecipesList extends Component {
@@ -14,7 +15,7 @@ class RecipesList extends Component {
 
 
   componentDidMount() {
-    this.props.getAllRecipes();
+    this.props.getMyRecipes();
   };
 
   render() {
@@ -48,4 +49,4 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes
 });
 
-export default connect(mapStateToProps, { getAllRecipes })(RecipesList);
+export default connect(mapStateToProps, { getMyRecipes })(RecipesList);

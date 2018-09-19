@@ -24,8 +24,7 @@ app.use(bodyParser.json());
 
 // Connect to the mlab database
 
-mongoose.connect(config.databaseUrl, {
-  })
+mongoose.connect(config.databaseUrl, { useNewUrlParser: true })
   .then(() => console.log('Connected to the database'))
   .catch(err => console.log(err));
 
