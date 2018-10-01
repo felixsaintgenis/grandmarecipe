@@ -99,7 +99,6 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
                 Recipe.findById(req.params.recipeid, (err, recipe) => {
                   if (err){
                     return res.send(err);
-                    console.log(recipe.likes)
                   };
 
                   if (recipe.likes.filter( item => item.toString() === req.params.userid).length) {
