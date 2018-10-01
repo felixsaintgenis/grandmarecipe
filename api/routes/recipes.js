@@ -10,6 +10,7 @@ require('../models/user')
 const Recipe = mongoose.model('recipes')
 const User = mongoose.model('users')
 const Comment = mongoose.model('comment')
+// const validateProfileInput = require('../helpers/validation/profile-validation');
 
 const router = express.Router()
 
@@ -43,13 +44,13 @@ router.get('/',(req, res) => {
 
   router.post('/add', (req, res) =>  {
 
-    const { errors, isValid } = validateProfileInput(req.body);
+    // const { errors, isValid } = validateProfileInput(req.body);
 
     // Check Validation
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
+    // if (!isValid) {
+    //   // Return any errors with 400 status
+    //   return res.status(400).json(errors);
+    // }
 
     const newRecipe = new Recipe({
       name: req.body.name,
@@ -100,7 +101,9 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
                     return res.send(err);
                     console.log(recipe.likes)
                   };
-                  if (recipe.likes.includes(req.params.userid)) {
+
+                  if (recipe.likes.filter( item => item.toString() === req.params.userid).length) {
+
                   const itemIndex = recipe.likes.indexOf(req.params.userid)
                   recipe.likes.splice(itemIndex, 1);
                   recipe.save();
