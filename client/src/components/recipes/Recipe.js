@@ -20,7 +20,7 @@ class Recipe extends Component {
     let likeCount;
     let likeButton;
     if (this.props.recipe.likes) {
-      likeCount = this.props.recipe.likes.length
+      likeCount = <span className="like-count">{this.props.recipe.likes.length}</span>
     }
     if ( this.props.recipe.likes && this.props.recipe.likes.filter( item => item.toString() === this.props.userId).length) {
        likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>Je n'aime plus la recette</button>;
@@ -37,6 +37,7 @@ class Recipe extends Component {
           <div className ="col-md-12 text-center">
             <button className="btn btn-success mr-4" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>Ajouter en favori</button>
           {likeButton}
+          <i class="fas fa-heart"></i>
           {likeCount}
         </div>
         </div>

@@ -14,7 +14,10 @@
   color: #46B1C9;
   cursor: pointer;
 }
-.fa-heart:hover {
+.fa-heart {
   color: #E05263;
-  cursor: pointer;
+  margin-left: 10px;
+}
+.like-count {
+  margin-left: 5px;
 }
