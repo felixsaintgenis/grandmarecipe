@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'comment' }],
+  favorites: [{ type: Schema.Types.ObjectId, ref: 'recipes' }]
 });
 
 mongoose.model ('users', UserSchema)

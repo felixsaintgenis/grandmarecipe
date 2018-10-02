@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Comment from '../common/Comment';
 import CommentModal from '../common/CommentModal';
 import { getRecipeById, addLike } from '../../actions/recipesAction';
+import { addToFavorites } from '../../actions/profileAction';
 import {getCommentsByRecipeId} from '../../actions/commentsAction';
 import Spinner from '../common/Spinner';
 import '../../css/Recipe.css';
@@ -35,7 +36,7 @@ class Recipe extends Component {
       <div className="container-fluid">
         <div className="row mt-4">
           <div className ="col-md-12 text-center">
-            <button className="btn btn-success mr-4" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>Ajouter en favori</button>
+            <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter en favori</button>
           {likeButton}
           <i class="fas fa-heart"></i>
           {likeCount}
@@ -110,4 +111,4 @@ const mapStateToProps = state => ({
   userId: state.auth.user.id
 });
 
-export default connect(mapStateToProps, { getRecipeById, getCommentsByRecipeId, addLike })(Recipe);
+export default connect(mapStateToProps, { getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);
