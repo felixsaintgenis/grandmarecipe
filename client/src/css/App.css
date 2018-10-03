@@ -6,6 +6,9 @@ body {
 img {
   width: 100%;
 }
+.app-container {
+  margin-bottom: 40px;
+}
 
 .header-background {
   position: relative;
