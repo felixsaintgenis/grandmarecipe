@@ -75,7 +75,7 @@ class Recipe extends Component {
             <CommentModal />
             {this.props.comments && this.props.comments.map((comment, index) => {
               return(
-                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : undefined} date={comment.created_at} />
+                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : this.props.userName} date={comment.created_at ? comment.created_at : "à l'instant"} />
               )
             })}
           </div>
@@ -108,7 +108,8 @@ class Recipe extends Component {
 const mapStateToProps = state => ({
   recipe: state.recipes.recipe,
   comments: state.comments.comments,
-  userId: state.auth.user.id
+  userId: state.auth.user.id,
+  userName: state.auth.user.name
 });
 
 export default connect(mapStateToProps, { getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);

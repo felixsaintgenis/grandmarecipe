@@ -1,0 +1,22 @@
+.page-footer {
+  background-color: #17a2b8;
+  padding: 0 50px;
+  color: #fff;
+}
+.page-footer a {
+  color: #fff;
+}
+.footer-copyright {
+    background-color: #107787;
+    color: #fff
+}
+.icon {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+.flex-center {
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
