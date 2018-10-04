@@ -20,9 +20,10 @@ router.get(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const errors = {};
-    
+
     Profile.findOne({ user: req.user.id })
       .populate('user', ['name', 'avatar'])
+      .populate('recipes')
       .then(profile => {
         if (!profile) {
           errors.noprofile = 'There is no profile for this user';
@@ -85,6 +86,27 @@ router.post(
     });
   }
 );
+
+router.post('/:userid/:recipeid/favorite/add', (req, res) => {
+
+  Profile.findOne({user: req.params.userid}).then((profile, err) => {
+    if (err) {
+      console.log(err)
+      return res.send(err);
+    };
+
+    if (profile.favorites.filter(item => item.toString() === req.params.recipeid).length) {
+      const itemIndex = profile.favorites.indexOf(req.params.recipeid)
+      profile.favorites.splice(itemIndex, 1);
+      profile.save();
+
+    } else {
+      profile.favorites.push(req.params.recipeid);
+      profile.save();
+
+    }
+  })
+});
 
 router.delete(
   '/',

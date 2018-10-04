@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actions/action-types';
+import { SET_CURRENT_USER, UPDATE_USER } from '../actions/action-types';
 import isEmpty from '../helpers/is-empty'
 
 const initialState = {

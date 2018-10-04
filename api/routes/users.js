@@ -100,27 +100,6 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.post('/:userid/:recipeid/favorite/add', (req, res) => {
-
-  User.findById(req.params.userid, (err, user) => {
-    if (err) {
-      return res.send(err);
-    };
-
-    if (user.favorites.filter(item => item.toString() === req.params.recipeid).length) {
-
-      const itemIndex = user.favorites.indexOf(req.params.recipeid)
-      user.favorites.splice(itemIndex, 1);
-      user.save();
-
-    } else {
-      user.favorites.push(req.params.recipeid);
-      user.save();
-
-    }
-  })
-});
-
 router.get('/:userid/favorites',(req,res)=> {
    User.findById(req.params.userid)
    .populate('recipes')

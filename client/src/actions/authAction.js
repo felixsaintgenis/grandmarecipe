@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER } from '../actions/action-types';
+import { GET_ERRORS, SET_CURRENT_USER, UPDATE_USER } from '../actions/action-types';
 import setAuthToken from '../helpers/setAuthToken';
 import jwtDecode from 'jwt-decode';
 
@@ -15,7 +15,6 @@ export const registerUser = (userData, history) => dispatch => {
             payload: err.response.data
         })
       );
-
 };
 
 //loginUser

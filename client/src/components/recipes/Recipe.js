@@ -4,7 +4,8 @@ import Comment from '../common/Comment';
 import CommentModal from '../common/CommentModal';
 import { getRecipeById, addLike } from '../../actions/recipesAction';
 import { addToFavorites } from '../../actions/profileAction';
-import {getCommentsByRecipeId} from '../../actions/commentsAction';
+import { getCommentsByRecipeId } from '../../actions/commentsAction';
+import { getCurrentProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner';
 import '../../css/Recipe.css';
 
@@ -13,13 +14,14 @@ class Recipe extends Component {
     if (this.props.match.params.id) {
       this.props.getRecipeById(this.props.match.params.id);
       this.props.getCommentsByRecipeId(this.props.match.params.id);
-
+      this.props.getCurrentProfile();
     }
   }
 
   render() {
     let likeCount;
     let likeButton;
+    let favoriteButton;
     if (this.props.recipe.likes) {
       likeCount = <span className="like-count">{this.props.recipe.likes.length}</span>
     }
@@ -28,6 +30,11 @@ class Recipe extends Component {
      } else {
         likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>J'aime la recette</button>;
       }
+    if ( this.props.profile && this.props.profile.favorites.filter( item => item.toString() === this.props.recipe._id).length) {
+         favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button>;
+       } else {
+          favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>;
+        }
   let recipeContent;
   if(this.props.recipe === null || this.props.recipe.loading) {
       recipeContent = <Spinner />
@@ -36,7 +43,7 @@ class Recipe extends Component {
       <div className="container-fluid">
         <div className="row mt-4">
           <div className ="col-md-12 text-center">
-            <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter en favori</button>
+          {favoriteButton}
           {likeButton}
           <i class="fas fa-heart"></i>
           {likeCount}
@@ -109,7 +116,8 @@ const mapStateToProps = state => ({
   recipe: state.recipes.recipe,
   comments: state.comments.comments,
   userId: state.auth.user.id,
-  userName: state.auth.user.name
+  userName: state.auth.user.name,
+  profile: state.profile.profile
 });
 
-export default connect(mapStateToProps, { getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);
+export default connect(mapStateToProps, { getCurrentProfile, getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);

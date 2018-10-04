@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import TextInput from '../common/TextInput';
 import TextAreaInput from '../common/TextAreaInput';
 import SelectListGroup from '../common/SelectListGroup';
-import { createRecipe } from '../../actions/recipesAction'
+import { createRecipe } from '../../actions/recipesAction';
 
 class CreateRecipe extends Component {
   constructor(props) {

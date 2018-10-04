@@ -37,12 +37,6 @@ class Recipe extends Component {
             <div className="col-lg-12 mx-auto text-center">
               <h2 className="section-heading text-black">Commentaires</h2>
               <hr className="light my-4"/>
-              <CommentModal />
-              {this.props.comments && this.props.comments.map((comment, index) => {
-                return(
-                  <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : undefined} date={comment.created_at} />
-                )
-              })}
             </div>
           </div>
         </div>

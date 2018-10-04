@@ -60,19 +60,20 @@ export const getFavorites = id => dispatch => {
 
 export const addToFavorites = ( userId, recipeId ) => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/users/',
+    baseURL: 'http://localhost:5000/api/profile/',
     /* other custom settings */
   });
 
   axiosInstance
     .post(`/${userId}/${recipeId}/favorite/add`, '')
-    .then(window.location.reload())
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
+    ).then(window.location.reload())
+    ;
+
 }
 
 //profile loading
