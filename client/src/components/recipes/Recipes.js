@@ -42,7 +42,7 @@ class RecipesList extends Component {
           <div className="row mt-5">
             <SearchBar />
             </div>
-            <RecipeList />
+            <RecipeList recipes={this.props.recipes} />
         </div>
       </div>
     );
@@ -50,7 +50,7 @@ class RecipesList extends Component {
 };
 
 const mapStateToProps = (state) => ({
-  recipes: state.recipes
+  recipes: state.recipes.recipes
 });
 
 export default connect(mapStateToProps, { getAllRecipes })(RecipesList);

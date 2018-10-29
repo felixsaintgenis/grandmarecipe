@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getAllRecipes } from '../../actions/recipesAction';
 import RecipesList from '../recipes/RecipesList'
 import '../../css/App.css'
 
 class Landing extends Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+
+  };
+
+  componentDidMount() {
+    this.props.getAllRecipes();
+  };
+
   render() {
     return (
       <div className="landing">
@@ -30,11 +43,15 @@ class Landing extends Component {
         </div>
       </div>
       <div className="mt-4">
-      <RecipesList />
+      <RecipesList recipes={this.props.recipes} />
       </div>
       </div>
     );
   }
 }
 
-export default Landing;
+const mapStateToProps = (state) => ({
+  recipes: state.recipes.recipes
+});
+
+export default connect(mapStateToProps, { getAllRecipes })(Landing);

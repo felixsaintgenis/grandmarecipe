@@ -1,4 +1,4 @@
-import { GET_COMMENTS, GET_CREATED_COMMENT } from '../actions/action-types';
+import { GET_COMMENTS } from '../actions/action-types';
 
 const initialState = {
   comments: null
@@ -11,11 +11,11 @@ export default function(state = initialState, action) {
         ...state,
         comments: action.payload
       }
-    case GET_CREATED_COMMENT:
-      return {
-        ...state,
-        comments: [...state.comments, action.payload]
-      }
+    // case GET_CREATED_COMMENT:
+    //   return {
+    //     ...state,
+    //     comments: [...state.comments, action.payload]
+    //   }
      default:
       return state;
   }

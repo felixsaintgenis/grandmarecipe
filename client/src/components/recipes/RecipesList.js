@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import RecipeCard from './RecipeCard'
-import { getAllRecipes } from '../../actions/recipesAction';
 import '../../css/Recipe.css';
 
-class RecipesList extends Component {
-  constructor() {
-    super();
-    this.state = {
-    };
 
-  };
-
-
-  componentDidMount() {
-    this.props.getAllRecipes();
-  };
-
-  render() {
-
+  
+  const RecipesList = ({
+    recipes
+  }) => {
     return (
       <div className="recipes-page">
         <div className="container">
             <div className="row">
-        {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
+        {recipes ? recipes.map((recipe) => {
           return(
             <div className="col-4">
             <RecipeCard
+            key={recipe._id}
             name={recipe.name}
-            key={index}
             image_url={recipe.image_url}
             product_description={recipe.product_description}
             id={recipe._id}
@@ -36,16 +24,11 @@ class RecipesList extends Component {
             />
           </div>
           )
-        })}
+        }) : null}
         </div>
         </div>
       </div>
     );
   };
-};
-
-const mapStateToProps = (state) => ({
-  recipes: state.recipes
-});
-
-export default connect(mapStateToProps, { getAllRecipes })(RecipesList);
+  
+  export default RecipesList;

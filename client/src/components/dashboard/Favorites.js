@@ -1,20 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Comment from '../common/Comment';
-import CommentModal from '../common/CommentModal';
-import { getRecipeById, addLike } from '../../actions/recipesAction';
-import { addToFavorites } from '../../actions/profileAction';
-import {getCommentsByRecipeId} from '../../actions/commentsAction';
-import Spinner from '../common/Spinner';
+import RecipesList from '../recipes/RecipesList';
+import SearchBar from '../common/SearchBar';
+import { getCurrentProfile } from '../../actions/profileAction';
 import '../../css/Recipe.css';
 
-class Recipe extends Component {
-  componentWillMount() {
-    if (this.props.match.params.id) {
-      this.props.getRecipeById(this.props.match.params.id);
-      this.props.getCommentsByRecipeId(this.props.match.params.id);
-
-    }
+class Favorites extends Component {
+  componentDidMount() {
+    this.props.getCurrentProfile();
+    console.log(this.props.profile)
   }
 
   render() {
@@ -32,24 +26,19 @@ class Recipe extends Component {
             </div>
           </div>
         </div>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-12 mx-auto text-center">
-              <h2 className="section-heading text-black">Commentaires</h2>
-              <hr className="light my-4"/>
+        <div className="container">
+          <div className="row mt-5">
+            <SearchBar />
             </div>
-          </div>
+            <RecipesList recipes={this.props.profile ? this.props.profile.favorites : null} />
         </div>
-      }
     </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  recipe: state.recipes.recipe,
-  favorites: state.comments.comments,
-  userId: state.auth.user.id
+  profile: state.profile.profile
 });
 
-export default connect(mapStateToProps, { getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);
+export default connect(mapStateToProps, { getCurrentProfile })(Favorites);

@@ -3,6 +3,6 @@ import '../../css/Footer.css';
 
 export default() => {
   return (
-      <div class="container-fluid footer-copyright text-center py-3">© 2018 Copyright - GrandMaRemedies</div>
+      <div className="container-fluid footer-copyright text-center py-3">© 2018 Copyright - GrandMaRemedies</div>
     );
 };

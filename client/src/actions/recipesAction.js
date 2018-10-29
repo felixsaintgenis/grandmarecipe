@@ -33,12 +33,6 @@ export const getRecipeById = id => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
-      dispatch({
-        type: GET_RECIPE,
-        payload: []
-      })
-    );
 };
 
 export const getMyRecipes = id => dispatch => {
@@ -75,7 +69,7 @@ export const createRecipe = (recipeData,history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data    
       })
     );
 }
@@ -94,11 +88,28 @@ export const addLike = ( userId, recipeId ) => dispatch => {
 
   axiosInstance
     .post(`/${recipeId}/${userId}/like/`, '')
-    .then(window.location.reload())
+    .then(
+      dispatch(getRecipeById(recipeId))
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
     );
+    dispatch(getRecipeById(recipeId))
 }
+
+// export function fetchPosts() {
+//   const request = axios.get(`${ROOT_URL}/posts`);
+//  return {
+//   type: FETCH_POSTS,
+//   payload: request
+//   };
+//  }
+//  export function fetchPostsSuccess(posts) {
+//   return {
+//   type: FETCH_POSTS_SUCCESS,
+//   payload: posts
+//   };
+//  }

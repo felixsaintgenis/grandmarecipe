@@ -30,11 +30,11 @@ class Recipe extends Component {
      } else {
         likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>J'aime la recette</button>;
       }
-    if ( this.props.profile && this.props.profile.favorites.filter( item => item.toString() === this.props.recipe._id).length) {
-         favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button>;
-       } else {
-          favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>;
-        }
+      {this.props.profile && this.props.profile.favorites.map((item) => {
+        item._id === this.props.recipe._id ? 
+        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button> :
+        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>
+      })}  
   let recipeContent;
   if(this.props.recipe === null || this.props.recipe.loading) {
       recipeContent = <Spinner />
@@ -45,7 +45,7 @@ class Recipe extends Component {
           <div className ="col-md-12 text-center">
           {favoriteButton}
           {likeButton}
-          <i class="fas fa-heart"></i>
+          <i className="fas fa-heart"></i>
           {likeCount}
         </div>
         </div>
@@ -53,7 +53,6 @@ class Recipe extends Component {
           <div className="col-md-4 mx-auto">
             <img className="img-fluid mb-4" src={this.props.recipe.image_url} alt=""/>
           </div>
-
         </div>
         <div className="row">
           <div className="col-lg-12 mx-auto text-center">

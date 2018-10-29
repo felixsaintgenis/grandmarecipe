@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_RECIPE, RECIPE_LOADING, GET_NEW_LIKE } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE, RECIPE_LOADING } from '../actions/action-types';
 
 const initialState = {
   recipes: [],

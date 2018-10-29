@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_COMMENTS, GET_ERRORS, CREATE_COMMENT, GET_CREATED_COMMENT } from '../actions/action-types';
+import { GET_COMMENTS, GET_ERRORS } from '../actions/action-types';
 
 export const getCommentsByRecipeId = id => dispatch => {
   let axiosInstance = axios.create({
@@ -32,11 +32,12 @@ export const createComment = (commentData, history) => dispatch => {
 
   axiosInstance
     .post(`/${commentData.recipeId}/${commentData.userId}/comment/create/`, commentData)
-    .then(res =>
-    dispatch({
-      type:GET_CREATED_COMMENT,
-      payload: commentData
-    }))
+    .then(dispatch(getCommentsByRecipeId(commentData.recipeId)))
+    // .then(res =>
+    // dispatch({
+    //   type:GET_CREATED_COMMENT,
+    //   payload: commentData
+    // }))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
