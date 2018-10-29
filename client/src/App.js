@@ -12,7 +12,6 @@ import { clearCurrentProfile } from './actions/profileAction';
 import PrivateRoute from './components/common/PrivateRoute'
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
-import Footer from './components/layout/Footer'
 import Copyright from './components/layout/Copyright'
 import Register from './components/authentification/Register'
 import Login from './components/authentification/Login'
@@ -76,7 +75,6 @@ class App extends Component {
       <PrivateRoute exact path="/favorites" component={MyFavorites} />
     </Switch>
           </div>
-          <Footer />
           <Copyright />
         </div>
      </Router>
