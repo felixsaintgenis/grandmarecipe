@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/action-types';
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, TOGGLE_FAVORITE } from '../actions/action-types';
 
 const initialState = {
   profile: null,
@@ -24,6 +24,11 @@ export default function(state = initialState, action) {
           ...state,
           profile: null
         }
+      case TOGGLE_FAVORITE:
+        return {
+          ...state,
+          profile: action.payload
+        };   
      default:
       return state;
   }

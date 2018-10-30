@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_RECIPE, RECIPE_LOADING } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE, RECIPE_LOADING, ADD_LIKE } from '../actions/action-types';
 
 const initialState = {
   recipes: [],
@@ -22,7 +22,12 @@ export default function(state = initialState, action) {
         ...state,
         recipe: action.payload,
         loading: false
-        }
+      }
+    case ADD_LIKE:
+      return {
+        ...state,
+        recipe: action.payload
+      };   
     default:
       return state
   }

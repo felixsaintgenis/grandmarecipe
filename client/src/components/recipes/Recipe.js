@@ -30,11 +30,10 @@ class Recipe extends Component {
      } else {
         likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>J'aime la recette</button>;
       }
-      {this.props.profile && this.props.profile.favorites.map((item) => {
-        item._id === this.props.recipe._id ? 
-        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button> :
-        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>
-      })}  
+      if ( this.props.profile && this.props.profile.favorites.filter( item => item === this.props.recipe._id || item._id === this.props.recipe._id).length) {
+        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button> }
+        else {favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>
+      }
   let recipeContent;
   if(this.props.recipe === null || this.props.recipe.loading) {
       recipeContent = <Spinner />

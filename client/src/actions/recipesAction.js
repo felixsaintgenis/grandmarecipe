@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE } from '../actions/action-types';
 
 export const getAllRecipes = () => dispatch => {
 
@@ -87,19 +87,37 @@ export const addLike = ( userId, recipeId ) => dispatch => {
   });
 
   axiosInstance
-    .post(`/${recipeId}/${userId}/like/`, '')
-    .then(
-      dispatch(getRecipeById(recipeId))
+    .post(`/${recipeId}/${userId}/like/`)
+    .then(res =>
+      dispatch({
+        type: ADD_LIKE,
+        payload: res.data
+      })
     )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    );
-    dispatch(getRecipeById(recipeId))
-}
+    ); 
+};
 
+// export const addLike = postData => dispatch => {
+//   axios
+//     .post('/api/posts', postData)
+//     .then(res =>
+//       dispatch({
+//         type: ADD_POST,
+//         payload: res.data
+//       })
+//     )
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// };
 // export function fetchPosts() {
 //   const request = axios.get(`${ROOT_URL}/posts`);
 //  return {

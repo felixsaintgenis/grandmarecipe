@@ -98,12 +98,11 @@ router.post('/:userid/:recipeid/favorite/add', (req, res) => {
     if (profile.favorites.filter(item => item.toString() === req.params.recipeid).length) {
       const itemIndex = profile.favorites.indexOf(req.params.recipeid)
       profile.favorites.splice(itemIndex, 1);
-      profile.save();
+      profile.save().then(profile => res.json(profile));
 
     } else {
       profile.favorites.push(req.params.recipeid);
-      profile.save();
-
+      profile.save().then(profile => res.json(profile));
     }
   })
 });

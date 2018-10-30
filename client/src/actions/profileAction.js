@@ -6,6 +6,7 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   GET_FAVORITES,
+  TOGGLE_FAVORITE
 } from './action-types'
 
 //get current profiles
@@ -65,15 +66,18 @@ export const addToFavorites = ( userId, recipeId ) => dispatch => {
   });
 
   axiosInstance
-    .post(`/${userId}/${recipeId}/favorite/add`, '')
+    .post(`/${userId}/${recipeId}/favorite/add`)
+    .then(res =>
+      dispatch({
+        type: TOGGLE_FAVORITE,
+        payload: res.data
+      }))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
-    ).then(window.location.reload())
-    ;
-
+    ); 
 }
 
 //profile loading

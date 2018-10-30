@@ -105,11 +105,11 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
 
                   const itemIndex = recipe.likes.indexOf(req.params.userid)
                   recipe.likes.splice(itemIndex, 1);
-                  recipe.save();
+                  recipe.save().then(recipe => res.json(recipe));
 
                 } else {
                     recipe.likes.push(req.params.userid);
-                    recipe.save();
+                    recipe.save().then(recipe => res.json(recipe));
 
                   }
       })

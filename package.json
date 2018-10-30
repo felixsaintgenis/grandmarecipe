@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "a chef d'oeuvre project",
   "main": "api/app.js",
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost:5000",
+      "changeOrigin": true
+    }
+  },
   "scripts": {
     "client-install": "npm install --prefix client",
     "server": "nodemon api/app.js --exec babel-node --presets=env",
