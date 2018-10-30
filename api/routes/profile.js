@@ -119,4 +119,19 @@ router.delete(
   }
 );
 
+router.get('/:userid/myfavorites/', (req, res) => {
+
+  Profile.find({user: req.params.userid}).select({ "favorites": { "$slice": -3 }})
+  .populate('favorites')
+  .then((favorites, err) => {
+    if (err) {
+      console.log(err)
+      return res.send(err);
+    };
+  
+    res.json(favorites);
+  })
+});
+
 export default router;
+
