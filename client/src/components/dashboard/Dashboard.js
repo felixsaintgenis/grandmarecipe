@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { getCurrentProfile, deleteAccount, getThreeLastFavorites } from '../../actions/profileAction';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileAction';
 import RecipesList from '../recipes/RecipesList';
 import SearchBar from '../common/SearchBar';
 import Spinner from '../common/Spinner'
@@ -13,11 +13,9 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getCurrentProfile();
-    this.props.getThreeLastFavorites(this.props.auth.user.id)
   }
-
+  
   render() {
-    console.log(this.props.profile.lastThreeFavorites)
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
 
@@ -28,6 +26,7 @@ class Dashboard extends Component {
     } else {
       if(Object.keys(profile).length > 0) {
         dashboardContent =
+        <div>
           <div className="row">
             <div>
           <button
@@ -44,17 +43,11 @@ class Dashboard extends Component {
             <Profile />
           </div>
       </div>
-      {this.props.profile.lastThreeFavorites && this.props.profile.lastThreeFavorites.map((item => {
-        <div className="container">
-        <div className="row mt-5">
-          <SearchBar />
-          </div>
-          <RecipesList recipes={item.favorites} />
-      </div>
-      console.log(item.favorites)
-      })
-      )}
-
+      <div className="row">
+      <h3 className="category-title mt-4">Mes derniers favoris</h3>
+      <RecipesList recipes={this.props.profile ? this.props.profile.profile.favorites.slice(Math.max(this.props.profile.profile.favorites.length - 3, 1)) : null}/>
+      </div>   
+      </div>  
       } else {
         dashboardContent = (
           <div>
@@ -99,8 +92,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  lastThreeFavorites: state.profile.lastThreeFavorites,
   profile: state.profile,
   auth: state.auth
 });
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount, getThreeLastFavorites })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
