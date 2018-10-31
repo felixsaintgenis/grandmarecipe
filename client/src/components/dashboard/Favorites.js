@@ -7,8 +7,7 @@ import '../../css/Recipe.css';
 
 class Favorites extends Component {
   componentDidMount() {
-    this.props.getCurrentProfile();
-    console.log(this.props.profile)
+    this.props.getCurrentProfile()
   }
 
   render() {

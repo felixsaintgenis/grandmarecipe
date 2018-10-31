@@ -27,6 +27,15 @@ router.get('/',(req, res) => {
    });
  });
 
+ router.get('/lastThreeRecipes',(req, res) => {    
+  Recipe.find().select({ "favorites": { "$slice": -3 }}).limit(3).sort( { '$date': -1 }).then((err,recipes) => { 
+     if (err){
+       return res.send(err);
+     }
+     res.json(recipes);
+   });
+ });
+
  router.get('/:id',(req,res)=> {
     Recipe.findById(req.params.id)
     .populate('comments')

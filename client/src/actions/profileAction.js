@@ -6,7 +6,8 @@ import {
   GET_ERRORS,
   SET_CURRENT_USER,
   GET_FAVORITES,
-  TOGGLE_FAVORITE
+  TOGGLE_FAVORITE,
+  ADD_THREE_FAVORITES
 } from './action-types'
 
 //get current profiles
@@ -114,3 +115,24 @@ export const deleteAccount = () => dispatch => {
       );
   }
 };
+
+export const getThreeLastFavorites = (userId) => dispatch => {
+  let axiosInstance = axios.create({
+    baseURL: 'http://localhost:5000/api/profile/',
+    /* other custom settings */
+  });
+
+  axiosInstance
+    .get(`/${userId}/myfavorites/`)
+    .then(res =>
+      dispatch({
+        type: ADD_THREE_FAVORITES,
+        payload: res.data
+      }))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    ); 
+}

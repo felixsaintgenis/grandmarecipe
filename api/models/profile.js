@@ -31,7 +31,6 @@ const ProfileSchema = new Schema({
     default: Date.now
   },
   favorites: [{ type: Schema.Types.ObjectId, ref: 'recipes' }]
-
 });
 
 mongoose.model ('profile', ProfileSchema)

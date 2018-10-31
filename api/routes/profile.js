@@ -121,7 +121,7 @@ router.delete(
 
 router.get('/:userid/myfavorites/', (req, res) => {
 
-  Profile.find({user: req.params.userid}).select({ "favorites": { "$slice": -3 }})
+  Profile.find({user: req.params.userid}).select({ "favorites": { "$slice": -3 },'_id': false})
   .populate('favorites')
   .then((favorites, err) => {
     if (err) {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE, GET_LAST_RECIPES } from '../actions/action-types';
 
 export const getAllRecipes = () => dispatch => {
 
@@ -46,6 +46,28 @@ export const getMyRecipes = id => dispatch => {
     .then(res =>
       dispatch({
         type: GET_RECIPE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_RECIPE,
+        payload: null
+      })
+    );
+};
+
+export const getLastThreeRecipes = id => dispatch => {
+  let axiosInstance = axios.create({
+    baseURL: 'http://localhost:5000/api/recipes/',
+    /* other custom settings */
+  });
+
+  axiosInstance
+    .get('lastThreeRecipes')
+    .then(res =>
+      dispatch({
+        type: GET_LAST_RECIPES,
         payload: res.data
       })
     )

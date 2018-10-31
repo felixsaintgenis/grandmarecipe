@@ -52,3 +52,9 @@ img {
 .navbar {
   z-index: 100;
 }
+.category-title {
+  font-weight: 500;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  margin-left: 15px;
+}

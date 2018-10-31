@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { getCurrentProfile, deleteAccount } from '../../actions/profileAction';
+import { getCurrentProfile, deleteAccount, getThreeLastFavorites } from '../../actions/profileAction';
+import RecipesList from '../recipes/RecipesList';
+import SearchBar from '../common/SearchBar';
 import Spinner from '../common/Spinner'
 import Profile from './Profile'
 import '../../css/Profile.css';
+import '../../css/Recipe.css';
 
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getCurrentProfile();
+    this.props.getThreeLastFavorites(this.props.auth.user.id)
   }
 
   render() {
+    console.log(this.props.profile.lastThreeFavorites)
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
 
@@ -39,6 +44,17 @@ class Dashboard extends Component {
             <Profile />
           </div>
       </div>
+      {this.props.profile.lastThreeFavorites && this.props.profile.lastThreeFavorites.map((item => {
+        <div className="container">
+        <div className="row mt-5">
+          <SearchBar />
+          </div>
+          <RecipesList recipes={item.favorites} />
+      </div>
+      console.log(item.favorites)
+      })
+      )}
+
       } else {
         dashboardContent = (
           <div>
@@ -83,7 +99,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
+  lastThreeFavorites: state.profile.lastThreeFavorites,
   profile: state.profile,
   auth: state.auth
 });
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount, getThreeLastFavorites })(Dashboard);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getAllRecipes } from '../../actions/recipesAction';
+import { getAllRecipes, getLastThreeRecipes } from '../../actions/recipesAction';
 import RecipesList from '../recipes/RecipesList'
 import '../../css/App.css'
 
@@ -15,6 +15,7 @@ class Landing extends Component {
 
   componentDidMount() {
     this.props.getAllRecipes();
+    this.props.getLastThreeRecipes();
   };
 
   render() {
@@ -42,8 +43,13 @@ class Landing extends Component {
           </div>
         </div>
       </div>
+      <div className="container mt-4">
+      <h3 className="category-title mt-4">Les dernières recettes</h3>
+      <RecipesList recipes={this.props.lastThreeRecipes} />
       <div className="mt-4">
+      <h3 className="category-title mt-4">Toutes les recettes</h3>
       <RecipesList recipes={this.props.recipes} />
+      </div>
       </div>
       </div>
     );
@@ -51,7 +57,8 @@ class Landing extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  recipes: state.recipes.recipes
+  recipes: state.recipes.recipes,
+  lastThreeRecipes: state.recipes.lastThreeRecipes
 });
 
-export default connect(mapStateToProps, { getAllRecipes })(Landing);
+export default connect(mapStateToProps, { getAllRecipes, getLastThreeRecipes })(Landing);
