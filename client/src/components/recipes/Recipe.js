@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Comment from '../common/Comment';
 import CommentModal from '../common/CommentModal';
+import { Link } from 'react-router-dom';
 import { getRecipeById, addLike } from '../../actions/recipesAction';
 import { addToFavorites } from '../../actions/profileAction';
 import { getCommentsByRecipeId } from '../../actions/commentsAction';
@@ -10,6 +11,12 @@ import Spinner from '../common/Spinner';
 import '../../css/Recipe.css';
 
 class Recipe extends Component {
+  static defaultProps = {
+    recipe: {},
+    recipe: {
+      likes: {}
+    }
+  };
   componentWillMount() {
     if (this.props.match.params.id) {
       this.props.getRecipeById(this.props.match.params.id);
@@ -19,22 +26,27 @@ class Recipe extends Component {
   }
 
   render() {
+    const likes = this.props.recipe.likes || [];
+    const profile = this.props.profile || [];
+    const comments = this.props.comments || [];
     let likeCount;
     let likeButton;
     let favoriteButton;
-    if (this.props.recipe.likes) {
-      likeCount = <span className="like-count">{this.props.recipe.likes.length}</span>
-    }
-    if ( this.props.recipe.likes && this.props.recipe.likes.filter( item => item.toString() === this.props.userId).length) {
-       likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>Je n'aime plus la recette</button>;
-     } else {
-        likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>J'aime la recette</button>;
-      }
-      if ( this.props.profile && this.props.profile.favorites.filter( item => item === this.props.recipe._id || item._id === this.props.recipe._id).length) {
-        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button> }
-        else {favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button>
-      }
-  let recipeContent;
+    let recipeContent;
+    
+
+    this.props.isAuthenticated !=  false ?
+    this.props.recipe && likes.filter( item => item.toString() === this.props.userId).length ?
+        likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>Je n'aime plus la recette</button> :
+        likeButton = <button className="btn btn-primary" onClick={ () => this.props.addLike(this.props.userId,this.props.recipe._id) }>J'aime la recette</button> : null
+        likeCount = <span className="like-count">{likes.length}</span>
+
+    this.props.isAuthenticated !=  false ?   
+    this.props.profile && profile.favorites.filter( item => item === this.props.recipe._id || item._id === this.props.recipe._id).length ? 
+        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Enlever des favoris</button> :
+        favoriteButton = <button className="btn btn-success mr-4" onClick={ () => this.props.addToFavorites(this.props.userId,this.props.recipe._id) }>Ajouter aux favoris</button> : 
+        favoriteButton = <Link to="/login" className="nav-link">Connectez vous pour accéder aux likes et favoris</Link>
+
   if(this.props.recipe === null || this.props.recipe.loading) {
       recipeContent = <Spinner />
     } else {
@@ -77,12 +89,11 @@ class Recipe extends Component {
           <div className="col-lg-12 mx-auto text-center">
             <h2 className="section-heading text-black">Commentaires</h2>
             <hr className="light my-4"/>
-            <CommentModal />
-            {this.props.comments && this.props.comments.map((comment, index) => {
+            {this.props.isAuthenticated !=  false ? <CommentModal /> : null}
+            {this.props.isAuthenticated !=  false ? this.props.comments && comments.map((comment, index) => {
               return(
-                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : this.props.userName} date={comment.created_at ? comment.created_at : "à l'instant"} />
-              )
-            })}
+                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : this.props.userName} date={comment.created_at ? comment.created_at : "à l'instant"} />)
+            }) : <Link to="/login" className="nav-link">Connectez vous pour voir les commentaires</Link>}
           </div>
         </div>
       </div>
@@ -115,6 +126,7 @@ const mapStateToProps = state => ({
   comments: state.comments.comments,
   userId: state.auth.user.id,
   userName: state.auth.user.name,
+  isAuthenticated: state.auth.isAuthenticated,
   profile: state.profile.profile
 });
 
