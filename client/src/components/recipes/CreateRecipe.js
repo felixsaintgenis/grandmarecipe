@@ -41,7 +41,7 @@ class CreateRecipe extends Component {
       product_recipe: this.state.product_recipe
 
     };
-    this.props.createRecipe(recipeData);
+    this.props.createRecipe(recipeData, this.props.history);
   }
 
   onChange(e) {

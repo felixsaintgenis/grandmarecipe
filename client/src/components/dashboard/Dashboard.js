@@ -28,8 +28,6 @@ class Dashboard extends Component {
       }) 
     });   
     this.props.recipes && this.props.recipes.map( recipe => {
-      console.log(userLikesArray)
-      console.log(userLikesArray)
       userLikesArray.includes(recipe._id) ?
       lastThreeRecipesLiked.push(recipe) : 
       null
@@ -42,10 +40,11 @@ class Dashboard extends Component {
   render() {
     let userLikesArray = [];
     let lastThreeRecipesLiked = [];
-    this.getUserLastThreeRecipesLiked(this.props.recipes, userLikesArray, lastThreeRecipesLiked)
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
     let dashboardContent;
+    this.getUserLastThreeRecipesLiked(this.props.recipes, userLikesArray, lastThreeRecipesLiked)
+
 
     if(profile === null || loading) {
       dashboardContent = <Spinner />
@@ -74,7 +73,7 @@ class Dashboard extends Component {
       <RecipesList recipes={this.props.profile ? this.props.profile.profile.favorites.slice(Math.max(this.props.profile.profile.favorites.length - 3, 1)) : null}/>
       </div>
       <div className="row">
-      <h3 className="category-title mt-4">Mes derniers likes</h3>
+      <h3 className="category-title mt-4">Mes likes</h3>
       <RecipesList recipes={lastThreeRecipesLiked ? lastThreeRecipesLiked.slice(Math.max(lastThreeRecipesLiked.length - 3, 1)) : null}/>
       </div>
       </div>  

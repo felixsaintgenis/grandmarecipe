@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE, GET_LAST_RECIPES } from '../actions/action-types';
+import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE, GET_LAST_RECIPES, ADD_RECIPE } from '../actions/action-types';
 
 export const getAllRecipes = () => dispatch => {
 
@@ -79,7 +79,7 @@ export const getLastThreeRecipes = id => dispatch => {
     );
 };
 
-export const createRecipe = (recipeData,history) => dispatch => {
+export const createRecipe = (recipeData, history) => dispatch => {
   let axiosInstance = axios.create({
     baseURL: 'http://localhost:5000/api/recipes/',
     /* other custom settings */
@@ -87,14 +87,14 @@ export const createRecipe = (recipeData,history) => dispatch => {
 
   axiosInstance
     .post('/add',recipeData)
-    .then(res => history.push('/dashboard'))
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data    
+    .then( res => { 
+    history.push('/dashboard')
+    dispatch({
+        type: ADD_RECIPE, 
+        payload: res.data
       })
-    );
-}
+      })
+};
 
 export const setRecipeLoading = () => {
   return {
