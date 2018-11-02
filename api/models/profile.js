@@ -30,7 +30,8 @@ const ProfileSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  favorites: [{ type: Schema.Types.ObjectId, ref: 'recipes' }]
+  favorites: [{ type: Schema.Types.ObjectId, ref: 'recipes' }],
+  likes: [{ type: Schema.Types.ObjectId, ref: 'recipes' }]
 });
 
 mongoose.model ('profile', ProfileSchema)

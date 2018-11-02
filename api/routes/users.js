@@ -111,6 +111,17 @@ router.get('/:userid/favorites',(req,res)=> {
    });
  });
 
+ router.get('/:userid/likes',(req,res)=> {
+  User.findById(req.params.userid)
+  .populate('recipes')
+  .exec((err, user) => {
+    if(err){
+      return res.send(err);
+    }
+    res.json(user);
+  });
+});
+
 // router.post('/like/:recetteId/:userId', (req, res) => {
 //     const { recetteId, userId } = req.params;
 //

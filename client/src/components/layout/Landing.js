@@ -19,6 +19,7 @@ class Landing extends Component {
   };
 
   render() {
+    let accountButtons;
     return (
       <div className="landing">
       <div className="header-background">
@@ -32,12 +33,12 @@ class Landing extends Component {
                   Find or share new and magical Grandma remedies for your pain.
                 </p>
                 <hr />
-                <Link to="/register" className="btn btn-lg btn-info mr-2">
-                  Sign Up
-                </Link>
-                <Link to="/login" className="btn btn-lg btn-light">
-                  Login
-                </Link>
+                {!this.props.auth.isAuthenticated ? 
+                accountButtons = <div><Link to="/register" className="btn btn-lg btn-info mr-2">Sign Up</Link>
+                <Link to="/login" className="btn btn-lg btn-light">Login</Link>
+                </div>
+                : 
+                <p>Bienvenue {this.props.auth.user.name}</p> }
               </div>
             </div>
           </div>
@@ -58,7 +59,8 @@ class Landing extends Component {
 
 const mapStateToProps = (state) => ({
   recipes: state.recipes.recipes,
-  lastThreeRecipes: state.recipes.lastThreeRecipes
+  lastThreeRecipes: state.recipes.lastThreeRecipes,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, { getAllRecipes, getLastThreeRecipes })(Landing);

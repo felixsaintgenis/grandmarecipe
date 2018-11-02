@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { getCurrentProfile, deleteAccount } from '../../actions/profileAction';
+import { getAllRecipes } from '../../actions/recipesAction';
 import RecipesList from '../recipes/RecipesList';
-import SearchBar from '../common/SearchBar';
 import Spinner from '../common/Spinner'
 import Profile from './Profile'
 import '../../css/Profile.css';
@@ -11,14 +11,40 @@ import '../../css/Recipe.css';
 
 class Dashboard extends Component {
 
-  componentDidMount() {
-    this.props.getCurrentProfile();
+  async componentDidMount() {
+
+    await this.props.getCurrentProfile();
+    await this.props.getAllRecipes();
   }
   
+
+  getUserLastThreeRecipesLiked(recipes, userLikesArray, lastThreeRecipesLiked) {
+    let recipeId;
+    recipes.map((recipe) => {
+      recipeId = recipe._id
+      recipe.likes.map((like) => {
+          like === this.props.auth.user.id && userLikesArray.includes(like) === false ? userLikesArray.push(recipeId) :
+          null
+      }) 
+    });   
+    this.props.recipes && this.props.recipes.map( recipe => {
+      console.log(userLikesArray)
+      console.log(userLikesArray)
+      userLikesArray.includes(recipe._id) ?
+      lastThreeRecipesLiked.push(recipe) : 
+      null
+    }
+    )
+    return lastThreeRecipesLiked
+  }
+
+
   render() {
+    let userLikesArray = [];
+    let lastThreeRecipesLiked = [];
+    this.getUserLastThreeRecipesLiked(this.props.recipes, userLikesArray, lastThreeRecipesLiked)
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
-
     let dashboardContent;
 
     if(profile === null || loading) {
@@ -46,7 +72,11 @@ class Dashboard extends Component {
       <div className="row">
       <h3 className="category-title mt-4">Mes derniers favoris</h3>
       <RecipesList recipes={this.props.profile ? this.props.profile.profile.favorites.slice(Math.max(this.props.profile.profile.favorites.length - 3, 1)) : null}/>
-      </div>   
+      </div>
+      <div className="row">
+      <h3 className="category-title mt-4">Mes derniers likes</h3>
+      <RecipesList recipes={lastThreeRecipesLiked ? lastThreeRecipesLiked.slice(Math.max(lastThreeRecipesLiked.length - 3, 1)) : null}/>
+      </div>
       </div>  
       } else {
         dashboardContent = (
@@ -84,7 +114,6 @@ class Dashboard extends Component {
           {dashboardContent}
           </div>
           </div>
-
           </div>
 
     )
@@ -93,6 +122,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   profile: state.profile,
-  auth: state.auth
+  auth: state.auth,
+  recipes: state.recipes.recipes
 });
-export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount, getAllRecipes })(Dashboard);
