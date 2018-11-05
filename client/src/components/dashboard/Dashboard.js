@@ -6,8 +6,10 @@ import { getAllRecipes } from '../../actions/recipesAction';
 import RecipesList from '../recipes/RecipesList';
 import Spinner from '../common/Spinner'
 import Profile from './Profile'
+import getUserRecipesLiked from '../../helpers/getUserRecipesLiked';
 import '../../css/Profile.css';
 import '../../css/Recipe.css';
+
 
 class Dashboard extends Component {
 
@@ -17,33 +19,13 @@ class Dashboard extends Component {
     await this.props.getAllRecipes();
   }
   
-
-  getUserLastThreeRecipesLiked(recipes, userLikesArray, lastThreeRecipesLiked) {
-    let recipeId;
-    recipes.map((recipe) => {
-      recipeId = recipe._id
-      recipe.likes.map((like) => {
-          like === this.props.auth.user.id && userLikesArray.includes(like) === false ? userLikesArray.push(recipeId) :
-          null
-      }) 
-    });   
-    this.props.recipes && this.props.recipes.map( recipe => {
-      userLikesArray.includes(recipe._id) ?
-      lastThreeRecipesLiked.push(recipe) : 
-      null
-    }
-    )
-    return lastThreeRecipesLiked
-  }
-
-
   render() {
     let userLikesArray = [];
     let lastThreeRecipesLiked = [];
     const { user } = this.props.auth;
     const { profile, loading } = this.props.profile;
     let dashboardContent;
-    this.getUserLastThreeRecipesLiked(this.props.recipes, userLikesArray, lastThreeRecipesLiked)
+    getUserRecipesLiked(this.props.recipes, userLikesArray, lastThreeRecipesLiked, this.props.auth.user.id)
 
 
     if(profile === null || loading) {
@@ -69,11 +51,12 @@ class Dashboard extends Component {
           </div>
       </div>
       <div className="row">
-      <h3 className="category-title mt-4">Mes derniers favoris</h3>
+      <Link to="/favorites" className="category-title mt-4">Mes derniers favoris</Link>
       <RecipesList recipes={this.props.profile ? this.props.profile.profile.favorites.slice(Math.max(this.props.profile.profile.favorites.length - 3, 1)) : null}/>
       </div>
       <div className="row">
-      <h3 className="category-title mt-4">Mes likes</h3>
+      <Link to="/likes" className="category-title mt-4">Mes likes</Link>
+
       <RecipesList recipes={lastThreeRecipesLiked ? lastThreeRecipesLiked.slice(Math.max(lastThreeRecipesLiked.length - 3, 1)) : null}/>
       </div>
       </div>  

@@ -21,6 +21,7 @@ import Dashboard  from './components/dashboard/Dashboard'
 import CreateProfile  from './components/dashboard/CreateProfile'
 import CreateRecipe  from './components/recipes/CreateRecipe'
 import MyFavorites from './components/dashboard/Favorites'
+import MyLikes from './components/dashboard/MyLikes'
 
 
 import './css/App.css';
@@ -73,6 +74,9 @@ class App extends Component {
       </Switch>
       <Switch>
       <PrivateRoute exact path="/favorites" component={MyFavorites} />
+    </Switch>
+    <Switch>
+      <PrivateRoute exact path="/likes" component={MyLikes} />
     </Switch>
           </div>
           <Copyright />
