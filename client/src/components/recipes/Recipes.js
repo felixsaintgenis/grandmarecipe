@@ -42,6 +42,7 @@ class RecipesList extends Component {
           <div className="row mt-5">
             <SearchBar />
             </div>
+            <h2 className="category-title mt-4">Toutes les recettes</h2>
             <RecipeList recipes={this.props.recipes} />
         </div>
       </div>

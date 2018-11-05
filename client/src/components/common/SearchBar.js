@@ -12,7 +12,7 @@ class SearchBar extends Component {
     super();
     this.state = {
       searchContent: '',
-      tagContent: '',
+      tagContent: null,
       recipeArray: []
     };
     this.displaySearchMatches = this.displaySearchMatches.bind(this);
@@ -45,12 +45,14 @@ class SearchBar extends Component {
   const recipeArray = await this.findMatches(this.state.searchContent, this.props.recipes.recipes);
     this.setState({ recipeArray: recipeArray })
     }
-  async displayTagMatches (e) {
-  await this.setState({ tagContent: e.target.value });
+    
+  async displayTagMatches (tagContent) {
+  await this.setState({ tagContent: tagContent.value });
   const newRecipeArray = await this.searchWithTag(this.state.tagContent, this.props.recipes.recipes);
     this.setState({ recipeArray: newRecipeArray })
     }
   render() {
+    const { tagContent } = this.state;
     const options = [
       { value: 'jus', label: 'jus' },
       { value: 'detox', label: 'detox' },
@@ -76,9 +78,9 @@ class SearchBar extends Component {
         <div className="col-12">
         <div className="form-group">
           <Select
-            closeMenuOnSelect={false}
+            value={tagContent}
             components={makeAnimated()}
-            isMulti
+            placeholder="select by tag..."
             options={options}
             onChange={this.displayTagMatches}
           />
@@ -86,7 +88,7 @@ class SearchBar extends Component {
     </div>
     </div>
   </div>
-        {this.state.recipeArray.length !== 0 ? <h2>Search results</h2> : null}
+        {this.state.recipeArray.length !== 0 ? <h2>Search results for {this.state.tagContent}</h2> : null}
         <div className="row">
     {this.state.recipeArray && this.state.recipeArray.map((recipe, index) => {
       return(
