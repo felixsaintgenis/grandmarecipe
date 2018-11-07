@@ -19,7 +19,7 @@ const router = express.Router()
 // @access public
 
 router.get('/',(req, res) => {
-  Recipe.find({},(err,recipes)=>{
+  Recipe.find({},(err,recipes) => {
      if (err){
        return res.send(err);
      }
@@ -84,23 +84,28 @@ router.post('/:recipeid/:userid/comment/create', (req, res) => {
       created_at: Date.now()
     });
     // sauvegarde du commentaire dans la collection
-    console.log(newComment)
     newComment.save((err, comment) => {
         if (err) { console.log(err) }
 
 
         // on trouve l'owner en question pour mettre à jour le tableau de commentaires
-        Recipe.findByIdAndUpdate(
-            req.params.recipeid,
+        Recipe.findById(req.params.recipeid,
             // MAJ du tableau de commentaire avec id du nouveau commentaire
-            { $push: { comments: comment._id } },
-            (err, comment) => {
+            // { $push: { comments: comment._id } },
+            (err, recipe) => {
                 err ?  res.send(err)
-                    : res.json({ "message": "a comment has been created" })
+                    : 
+                    recipe.comments.push(comment);
+                    recipe.save().then(recipe => {
+                      let lastComment;
+                      lastComment = recipe.comments.pop()
+                      res.json(lastComment)
+                    })
 
-            })
-          })
+            }).populate("comments")
+            });
         });
+
 
 
         router.post('/:recipeid/:userid/like', (req, res) => {

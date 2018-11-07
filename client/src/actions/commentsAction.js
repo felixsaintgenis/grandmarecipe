@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_COMMENTS, GET_ERRORS } from '../actions/action-types';
+import { GET_COMMENTS, GET_ERRORS, ADD_COMMENT } from '../actions/action-types';
 
 export const getCommentsByRecipeId = id => dispatch => {
   let axiosInstance = axios.create({
@@ -23,7 +23,7 @@ export const getCommentsByRecipeId = id => dispatch => {
     );
 };
 
-export const createComment = (commentData, history) => dispatch => {
+export const createComment = (commentData) => dispatch => {
 
   let axiosInstance = axios.create({
     baseURL: 'http://localhost:5000/api/recipes/',
@@ -32,17 +32,18 @@ export const createComment = (commentData, history) => dispatch => {
 
   axiosInstance
     .post(`/${commentData.recipeId}/${commentData.userId}/comment/create/`, commentData)
-    .then(dispatch(getCommentsByRecipeId(commentData.recipeId)))
-    // .then(res =>
-    // dispatch({
-    //   type:GET_CREATED_COMMENT,
-    //   payload: commentData
-    // }))
+    .then(res =>
+      dispatch({
+        type: ADD_COMMENT,
+        payload: res.data
+      })
+    )
     .catch(err =>
+      err.response && err.response.data ?
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
-      })
+        payload: err
+      }) : null
     );
 }
 // export function APIDispatch(data)

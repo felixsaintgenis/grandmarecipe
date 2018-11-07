@@ -8,7 +8,6 @@ require('../models/user')
 require('../models/post')
 
 const Comment = mongoose.model('comment')
-const User = mongoose.model('users')
 
 router.get('/:id',(req,res)=> {
    Comment.findById(req.params.id)

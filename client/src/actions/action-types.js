@@ -13,4 +13,6 @@ export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 export const ADD_THREE_FAVORITES = 'ADD_THREE_FAVORITES';
 export const GET_LAST_RECIPES = 'GET_LAST_RECIPES';
 export const ADD_RECIPE = 'ADD_RECIPE';
+export const ADD_COMMENT = 'ADD_COMMENT';
+
 

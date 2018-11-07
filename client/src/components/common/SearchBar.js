@@ -11,7 +11,7 @@ class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      searchContent: '',
+      searchContent: null,
       tagContent: null,
       recipeArray: []
     };
@@ -52,7 +52,7 @@ class SearchBar extends Component {
     this.setState({ recipeArray: newRecipeArray })
     }
   render() {
-    const { tagContent } = this.state;
+    const { tagContent, searchContent } = this.state;
     const options = [
       { value: 'jus', label: 'jus' },
       { value: 'detox', label: 'detox' },

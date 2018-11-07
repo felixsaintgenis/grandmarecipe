@@ -93,7 +93,7 @@ class Recipe extends Component {
             {this.props.isAuthenticated !=  false ? <CommentModal /> : null}
             {this.props.isAuthenticated !=  false ? this.props.comments && comments.map((comment, index) => {
               return(
-                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name : this.props.userName} date={comment.created_at ? comment.created_at : "à l'instant"} />)
+                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name ? comment.user.name : this.props.userName : null} date={comment.created_at ? comment.created_at : "à l'instant"} />)
             }) : <Link to="/login" className="nav-link">Connectez vous pour voir les commentaires</Link>}
           </div>
           </div>
