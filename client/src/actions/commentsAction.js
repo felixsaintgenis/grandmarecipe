@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_COMMENTS, GET_ERRORS, ADD_COMMENT } from '../actions/action-types';
+import { GET_COMMENTS, GET_ERRORS, ADD_COMMENT, DELETE_COMMENT } from '../actions/action-types';
 
 export const getCommentsByRecipeId = id => dispatch => {
   let axiosInstance = axios.create({
@@ -46,6 +46,33 @@ export const createComment = (commentData) => dispatch => {
       }) : null
     );
 }
+
+export const deleteComment = id => dispatch => {
+
+  let axiosInstance = axios.create({
+    baseURL: 'http://localhost:5000/api/posts/',
+    /* other custom settings */
+  });
+  if (window.confirm('Are you sure you want delete your message?')) {
+  axiosInstance
+
+    .delete(`/delete/${id}`)
+    .then(res =>
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: id
+      })
+    )
+    .catch(err =>
+      err.response && err.response.data ?
+      dispatch({
+        type: GET_ERRORS,
+        payload: err
+      }) : null
+    );
+    }
+}
+
 // export function APIDispatch(data)
 // {
 //     return{

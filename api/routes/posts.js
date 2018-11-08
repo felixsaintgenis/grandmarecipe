@@ -32,6 +32,20 @@ router.get('/:id',(req,res)=> {
      });
    });
 
+// @route   DELETE api/posts/:id
+// @desc    Delete post
+// @access  Private
+  router.delete(
+    '/delete/:id',
+    (req, res) => {
+      Comment.findById(req.params.id)
+          .then(comment => {
+            // Delete
+            comment.remove().then(() => res.json({ success: true }));
+          })
+          .catch(err => res.status(404).json({ postnotfound: 'No comment found' }));
+      });
+
 //
 // router.post('/:recipeid/comments', function(req, res){
 //

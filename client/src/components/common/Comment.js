@@ -5,7 +5,11 @@ const Comment = ({
   username,
   profilePicture,
   date,
-  body 
+  body,
+  commentUserId,
+  userId,
+  commentId,
+  deleteComment
   
 }) => {
   date =  new Date(date)
@@ -14,7 +18,9 @@ const Comment = ({
 <div className="col-md-12">
 <div className="panel panel-default">
 <div className="panel-heading">
-<strong>{username}</strong> <span className="text-muted">{date.toDateString()}</span>
+<strong>{username}</strong>
+<span className="text-muted">{date.toDateString()}</span>
+{userId == commentUserId ? <span onClick={() => deleteComment(commentId)} className="text-muted delete-span">x</span> : null}
 </div>
 <div className="panel-body">
 {body}

@@ -40,3 +40,7 @@
 .like-count {
   margin-left: 5px;
 }
+.delete-span {
+  margin-left: 5px;
+  cursor: pointer;
+}

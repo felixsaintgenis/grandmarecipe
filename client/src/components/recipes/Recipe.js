@@ -5,7 +5,7 @@ import CommentModal from '../common/CommentModal';
 import { Link } from 'react-router-dom';
 import { getRecipeById, addLike } from '../../actions/recipesAction';
 import { addToFavorites } from '../../actions/profileAction';
-import { getCommentsByRecipeId } from '../../actions/commentsAction';
+import { getCommentsByRecipeId, deleteComment } from '../../actions/commentsAction';
 import { getCurrentProfile } from '../../actions/profileAction';
 import Spinner from '../common/Spinner';
 import '../../css/Recipe.css';
@@ -93,7 +93,17 @@ class Recipe extends Component {
             {this.props.isAuthenticated !=  false ? <CommentModal /> : null}
             {this.props.isAuthenticated !=  false ? this.props.comments && comments.map((comment, index) => {
               return(
-                <Comment key={index} body={comment.body} username={comment.user ? comment.user.name ? comment.user.name : this.props.userName : null} date={comment.created_at ? comment.created_at : "à l'instant"} />)
+                <Comment 
+                key={index} 
+                userId={this.props.userId} 
+                commentUserId={comment.user ? comment.user._id : null}
+                commentId={comment._id} 
+                body={comment.body} 
+                username={comment.user ? comment.user.name ? comment.user.name : this.props.userName : null} 
+                date={comment.created_at ? comment.created_at : "à l'instant"} 
+                deleteComment={this.props.deleteComment}
+                />)
+      
             }) : <Link to="/login" className="nav-link">Connectez vous pour voir les commentaires</Link>}
           </div>
           </div>
@@ -132,4 +142,4 @@ const mapStateToProps = state => ({
   profile: state.profile.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getRecipeById, getCommentsByRecipeId, addLike, addToFavorites })(Recipe);
+export default connect(mapStateToProps, { getCurrentProfile, getRecipeById, getCommentsByRecipeId, addLike, addToFavorites, deleteComment })(Recipe);
