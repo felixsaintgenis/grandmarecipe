@@ -13,7 +13,7 @@ import '../../css/Recipe.css';
             <div className="row">
         {recipes ? recipes.map((recipe) => {
           return(
-            <div className="col-4">
+            <div className="col-md-4 col-sm-12">
             <RecipeCard
             key={recipe._id}
             name={recipe.name}

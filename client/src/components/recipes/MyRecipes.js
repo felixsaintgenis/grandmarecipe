@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipeCard from './RecipeCard'
-import SearchBar from '../common/SearchBar'
 import { getMyRecipes } from '../../actions/recipesAction';
 import '../../css/Recipe.css';
 
@@ -22,11 +21,10 @@ class RecipesList extends Component {
 
     return (
       <div className="recipes-page">
-        <div className="container">
-            <div className="row">
+            <div className="card-group">
         {this.props.recipes && this.props.recipes.recipes.map((recipe, index) => {
           return(
-            <div className="col-4">
+            <div>
             <RecipeCard
             name={recipe.name}
             key={index}
@@ -40,7 +38,6 @@ class RecipesList extends Component {
         })}
         </div>
         </div>
-      </div>
     );
   };
 };

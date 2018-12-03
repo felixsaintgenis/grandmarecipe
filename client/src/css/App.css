@@ -52,6 +52,7 @@ img {
 .navbar {
   z-index: 100;
 }
+
 .category-title {
   
   font-size: 35px;
@@ -59,4 +60,9 @@ img {
   padding-top: 40px;
   padding-bottom: 20px;
   margin-left: 15px;
+}
+@media screen and (max-width: 500px) {
+  .nav-link {
+    padding: 0 !important;
+  }
 }

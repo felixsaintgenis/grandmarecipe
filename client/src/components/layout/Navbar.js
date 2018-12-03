@@ -54,7 +54,7 @@ class Navbar extends Component {
       </ul>
     )
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark mb-4">
+      <nav className="navbar fixed-top navbar-expand-sm navbar-dark mb-4">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
             GrandMaRemedies

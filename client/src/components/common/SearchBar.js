@@ -92,7 +92,7 @@ class SearchBar extends Component {
         <div className="row">
     {this.state.recipeArray && this.state.recipeArray.map((recipe, index) => {
       return(
-        <div className="col-4 search-results">
+        <div className="col-md-4 col-sm-12 search-results">
         <RecipeCard
         key={index}
         name={recipe.name}
