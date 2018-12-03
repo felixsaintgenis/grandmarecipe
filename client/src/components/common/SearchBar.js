@@ -19,12 +19,15 @@ class SearchBar extends Component {
     this.displayTagMatches = this.displayTagMatches.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getAllRecipes();
+  }
 
   findMatches(wordToMatch, recipes) {
     return recipes.filter(recipe => {
       const regex = new RegExp(wordToMatch, "gi");
       if (wordToMatch) return recipe.name.match(regex);
+      return null;
     });
   }
 
@@ -61,7 +64,7 @@ class SearchBar extends Component {
     });
   }
   render() {
-    const { tagContent, searchContent } = this.state;
+    const { tagContent } = this.state;
     const options = [
       {
         value: "jus",
@@ -147,5 +150,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  {
+    getAllRecipes
+  }
 )(SearchBar);
