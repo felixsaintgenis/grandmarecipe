@@ -12,6 +12,7 @@
   "scripts": {
     "client-install": "npm install --prefix client",
     "server": "nodemon --ignore client/ --exec babel-node --presets=env api/app.js",
+    "start": "nodemon --ignore client/ --exec babel-node --presets=env api/app.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },

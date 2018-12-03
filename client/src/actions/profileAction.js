@@ -65,7 +65,7 @@ export const getFavorites = id => dispatch => {
 
 export const addToFavorites = (userId, recipeId) => dispatch => {
   axiosInstance
-    .post(`/${userId}/${recipeId}/favorite/add`)
+    .post(`/api/profile/${userId}/${recipeId}/favorite/add`)
     .then(res =>
       dispatch({
         type: TOGGLE_FAVORITE,
