@@ -1,20 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const ProfileSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: "users"
   },
   handle: {
     type: String,
-    required: true,
+    required: true
   },
   skills: {
     type: String,
     required: true,
-    max:40
+    max: 40
   },
   country: {
     type: String
@@ -30,8 +30,8 @@ const ProfileSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  favorites: [{ type: Schema.Types.ObjectId, ref: 'recipes' }],
-  likes: [{ type: Schema.Types.ObjectId, ref: 'recipes' }]
+  favorites: [{ type: Schema.Types.ObjectId, ref: "recipes" }],
+  likes: [{ type: Schema.Types.ObjectId, ref: "recipes" }]
 });
 
-mongoose.model ('profile', ProfileSchema)
+mongoose.model("profile", ProfileSchema);

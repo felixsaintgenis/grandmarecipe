@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   name: {
@@ -8,10 +8,6 @@ const UserSchema = new Schema({
     required: true
   },
   email: {
-    type: String,
-    required: true
-  },
-  password: {
     type: String,
     required: true
   },
@@ -29,4 +25,4 @@ const UserSchema = new Schema({
   }
 });
 
-mongoose.model ('users', UserSchema)
+mongoose.model("users", UserSchema);
