@@ -19,9 +19,7 @@ class SearchBar extends Component {
     this.displayTagMatches = this.displayTagMatches.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getAllRecipes();
-  }
+  componentDidMount() {}
 
   findMatches(wordToMatch, recipes) {
     return recipes.filter(recipe => {
@@ -149,7 +147,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {
-    getAllRecipes
-  }
+  {}
 )(SearchBar);
