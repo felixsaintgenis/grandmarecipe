@@ -15,6 +15,12 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -27,8 +33,10 @@
     "eslint-plugin-node": "^6.0.1",
     "express": "^4.16.3",
     "gravatar": "^1.6.0",
+    "husky": "^1.2.0",
     "jsonwebtoken": "^8.3.0",
     "jwt-decode": "^2.2.0",
+    "lint-staged": "^8.1.0",
     "mongoose": "^5.2.13",
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
@@ -49,5 +57,10 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "stylelint-config-recommended": "^2.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

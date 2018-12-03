@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { loginUser } from '../../actions/authAction';
-import TextInput from '../common/TextInput';
-import '../../css/Login.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authAction";
+import TextInput from "../common/TextInput";
+import "../../css/Login.css";
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       errors: {}
     };
 
@@ -17,15 +17,14 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push("/dashboard");
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({errors: nextProps.errors})
+      this.setState({ errors: nextProps.errors });
     }
   }
 
@@ -37,7 +36,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    this.props.loginUser(userData, this.props.history)
+    this.props.loginUser(userData, this.props.history);
   }
 
   onChange(e) {
@@ -83,9 +82,12 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);

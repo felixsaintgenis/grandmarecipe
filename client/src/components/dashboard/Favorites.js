@@ -1,17 +1,16 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import RecipesList from '../recipes/RecipesList';
-import SearchBar from '../common/SearchBar';
-import { getCurrentProfile } from '../../actions/profileAction';
-import '../../css/Recipe.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import RecipesList from "../recipes/RecipesList";
+import SearchBar from "../common/SearchBar";
+import { getCurrentProfile } from "../../actions/profileAction";
+import "../../css/Recipe.css";
 
 class Favorites extends Component {
   componentDidMount() {
-    this.props.getCurrentProfile()
+    this.props.getCurrentProfile();
   }
 
   render() {
-
     return (
       <div className="recipes-page-individual">
         <div className="header-background-profile">
@@ -28,10 +27,12 @@ class Favorites extends Component {
         <div className="container">
           <div className="row mt-5">
             <SearchBar />
-            </div>
-            <RecipesList recipes={this.props.profile ? this.props.profile.favorites : null} />
+          </div>
+          <RecipesList
+            recipes={this.props.profile ? this.props.profile.favorites : null}
+          />
         </div>
-    </div>
+      </div>
     );
   }
 }
@@ -40,4 +41,7 @@ const mapStateToProps = state => ({
   profile: state.profile.profile
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Favorites);
+export default connect(
+  mapStateToProps,
+  { getCurrentProfile }
+)(Favorites);

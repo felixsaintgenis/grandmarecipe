@@ -1,5 +1,5 @@
-import React from 'react';
-import '../../css/Comment.css';
+import React from "react";
+import "../../css/Comment.css";
 
 const Comment = ({
   username,
@@ -10,26 +10,29 @@ const Comment = ({
   userId,
   commentId,
   deleteComment
-  
 }) => {
-  date =  new Date(date)
+  date = new Date(date);
   return (
-<div>
-<div className="col-md-12">
-<div className="panel panel-default">
-<div className="panel-heading">
-<strong>{username}</strong>
-<span className="text-muted">{date.toDateString()}</span>
-{userId == commentUserId ? <span onClick={() => deleteComment(commentId)} className="text-muted delete-span">x</span> : null}
-</div>
-<div className="panel-body">
-{body}
-</div>
-</div>
-</div>
-<div className="col-sm-1">
-</div>
-</div>
+    <div>
+      <div className="col-md-12">
+        <div className="panel panel-default">
+          <div className="panel-heading">
+            <strong>{username}</strong>
+            <span className="text-muted">{date.toDateString()}</span>
+            {userId == commentUserId ? (
+              <span
+                onClick={() => deleteComment(commentId)}
+                className="text-muted delete-span"
+              >
+                x
+              </span>
+            ) : null}
+          </div>
+          <div className="panel-body">{body}</div>
+        </div>
+      </div>
+      <div className="col-sm-1" />
+    </div>
   );
 };
 

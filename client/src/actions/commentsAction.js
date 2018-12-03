@@ -1,12 +1,17 @@
-import axios from 'axios';
-import { GET_COMMENTS, GET_ERRORS, ADD_COMMENT, DELETE_COMMENT } from '../actions/action-types';
+import axios from "axios";
+import {
+  GET_COMMENTS,
+  GET_ERRORS,
+  ADD_COMMENT,
+  DELETE_COMMENT
+} from "../actions/action-types";
+
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:5000/"
+  /* other custom settings */
+});
 
 export const getCommentsByRecipeId = id => dispatch => {
-  let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/posts/',
-    /* other custom settings */
-  });
-
   axiosInstance
     .get(`${id}/comments`)
     .then(res =>
@@ -23,15 +28,12 @@ export const getCommentsByRecipeId = id => dispatch => {
     );
 };
 
-export const createComment = (commentData) => dispatch => {
-
-  let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
-    /* other custom settings */
-  });
-
+export const createComment = commentData => dispatch => {
   axiosInstance
-    .post(`/${commentData.recipeId}/${commentData.userId}/comment/create/`, commentData)
+    .post(
+      `/${commentData.recipeId}/${commentData.userId}/comment/create/`,
+      commentData
+    )
     .then(res =>
       dispatch({
         type: ADD_COMMENT,
@@ -39,39 +41,35 @@ export const createComment = (commentData) => dispatch => {
       })
     )
     .catch(err =>
-      err.response && err.response.data ?
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      }) : null
+      err.response && err.response.data
+        ? dispatch({
+            type: GET_ERRORS,
+            payload: err
+          })
+        : null
     );
-}
+};
 
 export const deleteComment = id => dispatch => {
-
-  let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/posts/',
-    /* other custom settings */
-  });
-  if (window.confirm('Are you sure you want delete your message?')) {
-  axiosInstance
-
-    .delete(`/delete/${id}`)
-    .then(res =>
-      dispatch({
-        type: DELETE_COMMENT,
-        payload: id
-      })
-    )
-    .catch(err =>
-      err.response && err.response.data ?
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      }) : null
-    );
-    }
-}
+  if (window.confirm("Are you sure you want delete your message?")) {
+    axiosInstance
+      .delete(`/delete/${id}`)
+      .then(res =>
+        dispatch({
+          type: DELETE_COMMENT,
+          payload: id
+        })
+      )
+      .catch(err =>
+        err.response && err.response.data
+          ? dispatch({
+              type: GET_ERRORS,
+              payload: err
+            })
+          : null
+      );
+  }
+};
 
 // export function APIDispatch(data)
 // {

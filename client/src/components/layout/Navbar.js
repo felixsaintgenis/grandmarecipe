@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router'
-import { logoutUser } from '../../actions/authAction';
-import { clearCurrentProfile } from '../../actions/profileAction';
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import { logoutUser } from "../../actions/authAction";
+import { clearCurrentProfile } from "../../actions/profileAction";
 
 class Navbar extends Component {
-
   onLogoutClick(e) {
     e.preventDefault();
-    this.props.clearCurrentProfile()
-    this.props.logoutUser(this.props.history)
+    this.props.clearCurrentProfile();
+    this.props.logoutUser(this.props.history);
   }
 
   render() {
@@ -33,12 +31,13 @@ class Navbar extends Component {
           <a
             href=""
             onClick={this.onLogoutClick.bind(this)}
-            className="nav-link">
+            className="nav-link"
+          >
             Log out
-         </a>
+          </a>
         </li>
       </ul>
-    )
+    );
     const guestLinks = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -52,7 +51,7 @@ class Navbar extends Component {
           </Link>
         </li>
       </ul>
-    )
+    );
     return (
       <nav className="navbar fixed-top navbar-expand-sm navbar-dark mb-4">
         <div className="container-fluid">
@@ -65,7 +64,7 @@ class Navbar extends Component {
             data-toggle="collapse"
             data-target="#mobile-nav"
           >
-            <span className="navbar-toggler-icon"/>
+            <span className="navbar-toggler-icon" />
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
@@ -77,7 +76,6 @@ class Navbar extends Component {
               </li>
             </ul>
             {isAuthenticated ? authLinks : guestLinks}
-
           </div>
         </div>
       </nav>
@@ -86,6 +84,11 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth,
-})
-export default withRouter(connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar));
+  auth: state.auth
+});
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { logoutUser, clearCurrentProfile }
+  )(Navbar)
+);

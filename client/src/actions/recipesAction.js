@@ -1,10 +1,17 @@
-import axios from 'axios';
-import { GET_RECIPES, GET_RECIPE, GET_ERRORS, RECIPE_LOADING, ADD_LIKE, GET_LAST_RECIPES, ADD_RECIPE } from '../actions/action-types';
+import axios from "axios";
+import {
+  GET_RECIPES,
+  GET_RECIPE,
+  GET_ERRORS,
+  RECIPE_LOADING,
+  ADD_LIKE,
+  GET_LAST_RECIPES,
+  ADD_RECIPE
+} from "../actions/action-types";
 
 export const getAllRecipes = () => dispatch => {
-
-    axios
-    .get('http://localhost:5000/api/recipes')
+  axios
+    .get("http://localhost:5000/api/recipes")
     .then(res =>
       dispatch({
         type: GET_RECIPES,
@@ -21,23 +28,21 @@ export const getAllRecipes = () => dispatch => {
 
 export const getRecipeById = id => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
+    baseURL: "http://localhost:5000/api/recipes/"
     /* other custom settings */
   });
   dispatch(setRecipeLoading());
-  axiosInstance
-    .get(id)
-    .then(res =>
-      dispatch({
-        type: GET_RECIPE,
-        payload: res.data
-      })
-    )
+  axiosInstance.get(id).then(res =>
+    dispatch({
+      type: GET_RECIPE,
+      payload: res.data
+    })
+  );
 };
 
 export const getMyRecipes = id => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
+    baseURL: "http://localhost:5000/api/recipes/"
     /* other custom settings */
   });
 
@@ -59,12 +64,12 @@ export const getMyRecipes = id => dispatch => {
 
 export const getLastThreeRecipes = id => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
+    baseURL: "http://localhost:5000/api/recipes/"
     /* other custom settings */
   });
 
   axiosInstance
-    .get('lastThreeRecipes')
+    .get("lastThreeRecipes")
     .then(res =>
       dispatch({
         type: GET_LAST_RECIPES,
@@ -81,30 +86,28 @@ export const getLastThreeRecipes = id => dispatch => {
 
 export const createRecipe = (recipeData, history) => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
+    baseURL: "http://localhost:5000/api/recipes/"
     /* other custom settings */
   });
 
-  axiosInstance
-    .post('/add',recipeData)
-    .then( res => { 
-    history.push('/dashboard')
+  axiosInstance.post("/add", recipeData).then(res => {
+    history.push("/dashboard");
     dispatch({
-        type: ADD_RECIPE, 
-        payload: res.data
-      })
-      })
+      type: ADD_RECIPE,
+      payload: res.data
+    });
+  });
 };
 
 export const setRecipeLoading = () => {
   return {
     type: RECIPE_LOADING
-  }
-}
+  };
+};
 
-export const addLike = ( userId, recipeId ) => dispatch => {
+export const addLike = (userId, recipeId) => dispatch => {
   let axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000/api/recipes/',
+    baseURL: "http://localhost:5000/api/recipes/"
     /* other custom settings */
   });
 
@@ -121,7 +124,7 @@ export const addLike = ( userId, recipeId ) => dispatch => {
         type: GET_ERRORS,
         payload: err.response.data
       })
-    ); 
+    );
 };
 
 // export const addLike = postData => dispatch => {
