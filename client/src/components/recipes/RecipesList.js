@@ -6,7 +6,6 @@ const RecipesList = ({ recipes }) => {
   return (
     <div className="recipes-page">
       <div className="container">
-        <p>coucou</p>
         <div className="row">
           {recipes
             ? recipes.map(recipe => {

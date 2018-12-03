@@ -17,7 +17,6 @@ class RecipesList extends Component {
   render() {
     return (
       <div className="recipes-page">
-        <p>coucou</p>
         <div className="card-group">
           {this.props.recipes &&
             this.props.recipes.recipes.map((recipe, index) => {
