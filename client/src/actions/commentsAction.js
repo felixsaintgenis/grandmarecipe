@@ -7,7 +7,12 @@ import {
 } from "../actions/action-types";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/"
+  baseURL: "http://localhost:5000/api/posts"
+  /* other custom settings */
+});
+
+const axiosInstanceForComments = axios.create({
+  baseURL: "http://localhost:5000/api/recipes"
   /* other custom settings */
 });
 
@@ -29,7 +34,7 @@ export const getCommentsByRecipeId = id => dispatch => {
 };
 
 export const createComment = commentData => dispatch => {
-  axiosInstance
+  axiosInstanceForComments
     .post(
       `/${commentData.recipeId}/${commentData.userId}/comment/create/`,
       commentData
@@ -70,28 +75,3 @@ export const deleteComment = id => dispatch => {
       );
   }
 };
-
-// export function APIDispatch(data)
-// {
-//     return{
-//         type:'API_DATA_RECD',
-//         data:data
-//     }
-// }
-//
-// export function callAPI(){
-//     return function(dispatch){
-//          axios({
-//             method: 'post',
-//             url: 'php/register.php',
-//             contentType: "application/json; charset=utf-8",
-//             dataType: "json",
-//             data: userData
-//           }).then(function(response) {
-//             state.error = response.data.errors;
-//             state.success = response.data.success;
-//             dispatch(APIDispatch(state))
-//         });
-//
-//     }
-// }
