@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import TextInput from "../common/TextInput";
 import TextAreaInput from "../common/TextAreaInput";
 import SelectListGroup from "../common/SelectListGroup";
@@ -130,6 +130,9 @@ class CreateRecipe extends Component {
             value="Submit"
             className="btn btn-info btn-block mt-4"
           />
+          <Link to="/dashboard" className="btn btn-danger mt-4">
+            Annuler et revenir au profil
+          </Link>
         </form>
       </div>
     );
