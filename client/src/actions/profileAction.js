@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
@@ -14,6 +15,24 @@ const axiosInstance = axios.create({
   baseURL: "http://localhost:5000/"
   /* other custom settings */
 });
+
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axiosInstance
+    .get("/api/profile/all")
+    .then(res =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
+      })
+    );
+};
 
 //get current profiles
 export const getCurrentProfile = () => dispatch => {
@@ -61,6 +80,16 @@ export const getFavorites = id => dispatch => {
         payload: null
       })
     );
+};
+
+export const getProfileById = id => dispatch => {
+  dispatch(setProfileLoading());
+  axiosInstance.get(id).then(res =>
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    })
+  );
 };
 
 export const addToFavorites = (userId, recipeId) => dispatch => {
