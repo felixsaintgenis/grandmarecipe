@@ -120,6 +120,8 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.get("/login/google", (req, res) => {});
+
 router.get("/:userid/favorites", (req, res) => {
   User.findById(req.params.userid)
     .populate("recipes")
