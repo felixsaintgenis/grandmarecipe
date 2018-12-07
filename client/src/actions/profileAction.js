@@ -19,7 +19,7 @@ const axiosInstance = axios.create({
 export const getProfiles = () => dispatch => {
   dispatch(setProfileLoading());
   axiosInstance
-    .get("/api/profile/all")
+    .get("/api/profile/profiles")
     .then(res =>
       dispatch({
         type: GET_PROFILES,

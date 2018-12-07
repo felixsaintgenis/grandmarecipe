@@ -17,6 +17,7 @@ import Register from "./components/authentification/Register";
 import Login from "./components/authentification/Login";
 import Recipes from "./components/recipes/Recipes";
 import Recipe from "./components/recipes/Recipe";
+import PublicProfile from "./components/dashboard/PublicProfile";
 import Dashboard from "./components/dashboard/Dashboard";
 import CreateProfile from "./components/dashboard/CreateProfile";
 import CreateRecipe from "./components/recipes/CreateRecipe";
@@ -61,6 +62,7 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/recipes" component={Recipes} />
               <Route exact path="/recipe/:id" component={Recipe} />
+              <Route exact path="/profile/:id" component={PublicProfile} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>

@@ -38,7 +38,7 @@ class Favorites extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile.profile
+  profile: state.currentUser.profile
 });
 
 export default connect(

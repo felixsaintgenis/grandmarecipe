@@ -5,22 +5,24 @@ import { getCurrentProfile, deleteAccount } from "../../actions/profileAction";
 import { getAllRecipes } from "../../actions/recipesAction";
 import RecipesList from "../recipes/RecipesList";
 import Spinner from "../common/Spinner";
-import Profile from "./Profile";
+import ProfileTable from "./ProfileTable";
 import getUserRecipesLiked from "../../helpers/getUserRecipesLiked";
 import "../../css/Profile.css";
 import "../../css/Recipe.css";
 
 class Dashboard extends Component {
   async componentDidMount() {
+    debugger;
     await this.props.getCurrentProfile();
     await this.props.getAllRecipes();
   }
 
   render() {
+    debugger;
     let userLikesArray = [];
     let lastThreeRecipesLiked = [];
     const { user } = this.props.auth;
-    const { profile, loading } = this.props.profile;
+    const { profile, loading } = this.props.currentUser;
     let dashboardContent;
     getUserRecipesLiked(
       this.props.recipes,
@@ -48,7 +50,7 @@ class Dashboard extends Component {
                 </Link>
               </div>
               <div className="mx-auto mt-5">
-                <Profile />
+                <ProfileTable handle={profile.handle} />
               </div>
             </div>
             <div className="row">
@@ -57,10 +59,10 @@ class Dashboard extends Component {
               </Link>
               <RecipesList
                 recipes={
-                  this.props.profile
-                    ? this.props.profile.profile.favorites.slice(
+                  this.props.currentUser
+                    ? this.props.currentUser.profile.favorites.slice(
                         Math.max(
-                          this.props.profile.profile.favorites.length - 3,
+                          this.props.currentUser.profile.favorites.length - 3,
                           1
                         )
                       )
@@ -120,7 +122,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile,
+  currentUser: state.currentUser,
   auth: state.auth,
   recipes: state.recipes.recipes
 });

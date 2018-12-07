@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-expressions */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Comment from "../common/Comment";
 import CommentModal from "../common/CommentModal";
 import { Link } from "react-router-dom";
 import { getRecipeById, addLike } from "../../actions/recipesAction";
-import { addToFavorites } from "../../actions/profileAction";
+import { addToFavorites, getProfiles } from "../../actions/profileAction";
 import {
   getCommentsByRecipeId,
   deleteComment
@@ -19,19 +20,20 @@ class Recipe extends Component {
       this.props.getRecipeById(this.props.match.params.id);
       this.props.getCommentsByRecipeId(this.props.match.params.id);
       this.props.getCurrentProfile();
+      this.props.getProfiles();
     }
   }
 
   render() {
     const likes = this.props.recipe.likes || [];
-    const profile = this.props.profile || [];
+    const profile = this.props.currentUser || [];
     const comments = this.props.comments || [];
     let likeCount;
     let likeButton;
     let favoriteButton;
     let recipeContent;
 
-    this.props.isAuthenticated != false
+    this.props.isAuthenticated !== false
       ? this.props.recipe &&
         likes.filter(item => item.toString() === this.props.userId).length
         ? (likeButton = (
@@ -57,8 +59,8 @@ class Recipe extends Component {
       : null;
     likeCount = <span className="like-count">{likes.length}</span>;
 
-    this.props.isAuthenticated != false
-      ? this.props.profile &&
+    this.props.isAuthenticated !== false
+      ? this.props.currentUser &&
         profile.favorites.filter(
           item =>
             item === this.props.recipe._id || item._id === this.props.recipe._id
@@ -211,7 +213,8 @@ const mapStateToProps = state => ({
   userId: state.auth.user.id,
   userName: state.auth.user.name,
   isAuthenticated: state.auth.isAuthenticated,
-  profile: state.profile.profile
+  currentUser: state.currentUser.profile,
+  profiles: state.usersList
 });
 
 export default connect(
@@ -222,6 +225,7 @@ export default connect(
     getCommentsByRecipeId,
     addLike,
     addToFavorites,
+    getProfiles,
     deleteComment
   }
 )(Recipe);
