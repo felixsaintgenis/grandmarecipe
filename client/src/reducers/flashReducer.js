@@ -1,8 +1,7 @@
 import { FLASH_MESSAGE, HIDE_FLASH_MESSAGE } from "../actions/action-types";
 
 const initialState = {
-  message: null,
-  className: null
+  successMessage: null
 };
 
 export default (state = initialState, action) => {
@@ -11,8 +10,7 @@ export default (state = initialState, action) => {
       return action.payload;
     case HIDE_FLASH_MESSAGE:
       return {
-        message: null,
-        className: null
+        successMessage: null
       };
     default:
       return state;

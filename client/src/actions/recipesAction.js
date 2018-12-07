@@ -4,6 +4,7 @@ import {
   GET_RECIPES,
   GET_RECIPE,
   GET_ERRORS,
+  SUCCESS_FETCH,
   RECIPE_LOADING,
   ADD_LIKE,
   GET_LAST_RECIPES
@@ -92,17 +93,19 @@ export const createRecipe = (recipeData, history) => dispatch => {
 
   axiosInstance
     .post("/add", recipeData)
-    .then(res => history.push("/dashboard"))
+    .then(res =>
+      dispatch({
+        type: SUCCESS_FETCH,
+        payload: null
+      })
+    )
+    .then(err => (err ? history.push("/dashboard") : null))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
     );
-  dispatch(
-    sendFlashMessage("success", "The recipe has been successfully added")
-  );
-  setTimeout(() => dispatch(deleteFlashMessage()), 4000);
 };
 
 export const setRecipeLoading = () => {
