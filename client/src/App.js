@@ -23,6 +23,7 @@ import CreateProfile from "./components/dashboard/CreateProfile";
 import CreateRecipe from "./components/recipes/CreateRecipe";
 import MyFavorites from "./components/dashboard/Favorites";
 import MyLikes from "./components/dashboard/MyLikes";
+import FlashMessage from "./components/common/FlashMessage";
 
 import "./css/App.css";
 
@@ -56,6 +57,7 @@ class App extends Component {
         <Router>
           <div className="App">
             <Navbar />
+            <FlashMessage />
             <Route exact path="/" component={Landing} />
             <div className="app-container">
               <Route exact path="/register" component={Register} />

@@ -12,13 +12,11 @@ import "../../css/Recipe.css";
 
 class Dashboard extends Component {
   async componentDidMount() {
-    debugger;
     await this.props.getCurrentProfile();
     await this.props.getAllRecipes();
   }
 
   render() {
-    debugger;
     let userLikesArray = [];
     let lastThreeRecipesLiked = [];
     const { user } = this.props.auth;

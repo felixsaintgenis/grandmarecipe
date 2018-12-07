@@ -5,6 +5,7 @@ import recipesReducer from "./recipesReducer";
 import profileReducer from "./profileReducer";
 import usersListReducer from "./usersListReducer";
 import commentsReducer from "./commentsReducer";
+import flashReducer from "./flashReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   errors: errorReducer,
   currentUser: profileReducer,
   usersList: usersListReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  flashMessage: flashReducer
 });

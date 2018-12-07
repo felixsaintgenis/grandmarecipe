@@ -1,4 +1,5 @@
 import axios from "axios";
+import { sendFlashMessage, deleteFlashMessage } from "../actions/flash-message";
 import {
   GET_RECIPES,
   GET_RECIPE,
@@ -98,6 +99,10 @@ export const createRecipe = (recipeData, history) => dispatch => {
         payload: err.response.data
       })
     );
+  dispatch(
+    sendFlashMessage("success", "The recipe has been successfully added")
+  );
+  setTimeout(() => dispatch(deleteFlashMessage()), 4000);
 };
 
 export const setRecipeLoading = () => {
