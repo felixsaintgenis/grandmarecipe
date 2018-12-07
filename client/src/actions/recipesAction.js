@@ -5,8 +5,7 @@ import {
   GET_ERRORS,
   RECIPE_LOADING,
   ADD_LIKE,
-  GET_LAST_RECIPES,
-  ADD_RECIPE
+  GET_LAST_RECIPES
 } from "../actions/action-types";
 
 export const getAllRecipes = () => dispatch => {
@@ -90,13 +89,15 @@ export const createRecipe = (recipeData, history) => dispatch => {
     /* other custom settings */
   });
 
-  axiosInstance.post("/add", recipeData).then(res => {
-    history.push("/dashboard");
-    dispatch({
-      type: ADD_RECIPE,
-      payload: res.data
-    });
-  });
+  axiosInstance
+    .post("/add", recipeData)
+    .then(res => history.push("/dashboard"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 export const setRecipeLoading = () => {
@@ -126,33 +127,3 @@ export const addLike = (userId, recipeId) => dispatch => {
       })
     );
 };
-
-// export const addLike = postData => dispatch => {
-//   axios
-//     .post('/api/posts', postData)
-//     .then(res =>
-//       dispatch({
-//         type: ADD_POST,
-//         payload: res.data
-//       })
-//     )
-//     .catch(err =>
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: err.response.data
-//       })
-//     );
-// };
-// export function fetchPosts() {
-//   const request = axios.get(`${ROOT_URL}/posts`);
-//  return {
-//   type: FETCH_POSTS,
-//   payload: request
-//   };
-//  }
-//  export function fetchPostsSuccess(posts) {
-//   return {
-//   type: FETCH_POSTS_SUCCESS,
-//   payload: posts
-//   };
-//  }

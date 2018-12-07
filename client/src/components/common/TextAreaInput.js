@@ -1,5 +1,5 @@
-import React from 'react';
-import classnames from 'classnames';
+import React from "react";
+import classnames from "classnames";
 
 const TextAreaFieldGroup = ({
   name,
@@ -9,11 +9,12 @@ const TextAreaFieldGroup = ({
   info,
   onChange
 }) => {
+  console.log("reequired", required);
   return (
     <div className="form-group">
       <textarea
-        className={classnames('form-control form-control-lg', {
-          'is-invalid': error
+        className={classnames("form-control form-control-lg", {
+          "is-invalid": error
         })}
         placeholder={placeholder}
         name={name}

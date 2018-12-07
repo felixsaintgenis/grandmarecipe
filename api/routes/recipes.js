@@ -9,6 +9,8 @@ const Recipe = mongoose.model("recipes");
 const Comment = mongoose.model("comment");
 const router = express.Router();
 
+const validateRecipeInput = require("../helpers/validation/create-recipe-validation");
+
 // @route GET api/recipes/register
 // @description Register user
 // @access public
@@ -57,6 +59,13 @@ router.get("/:id", (req, res) => {
 // @access public
 
 router.post("/add", (req, res) => {
+  const { errors, isValid } = validateRecipeInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    // Return any errors with 400 status
+    return res.status(400).json(errors);
+  }
   const newRecipe = new Recipe({
     name: req.body.name,
     image_url: req.body.image_url,
