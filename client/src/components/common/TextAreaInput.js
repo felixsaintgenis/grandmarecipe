@@ -9,7 +9,6 @@ const TextAreaFieldGroup = ({
   info,
   onChange
 }) => {
-  console.log("reequired", required);
   return (
     <div className="form-group">
       <textarea
