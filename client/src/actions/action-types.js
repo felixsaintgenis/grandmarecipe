@@ -17,6 +17,4 @@ export const GET_LAST_RECIPES = "GET_LAST_RECIPES";
 export const ADD_RECIPE = "ADD_RECIPE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
-export const FLASH_MESSAGE = "FLASH_MESSAGE";
-export const HIDE_FLASH_MESSAGE = "HIDE_FLASH_MESSAGE";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
