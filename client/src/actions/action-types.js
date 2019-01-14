@@ -18,3 +18,4 @@ export const ADD_RECIPE = "ADD_RECIPE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const FAILED_FETCH = "FAILED_FETCH";

@@ -7,7 +7,8 @@ import {
   RECIPE_LOADING,
   ADD_LIKE,
   GET_LAST_RECIPES,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  FAILED_FETCH
 } from "../actions/action-types";
 
 export const getAllRecipes = () => dispatch => {
@@ -105,11 +106,13 @@ export const createRecipe = (recipeData, history) => dispatch => {
         dispatch({ type: CLEAR_ERRORS });
       }, 5000)
     )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
+    .catch(
+      err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        }),
+      dispatch({ type: FAILED_FETCH })
     );
 };
 

@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 class FlashMessage extends Component {
   render() {
-    if (this.props.errors && this.props.errors.errors === "success") {
+    console.log(Object.keys(this.props.errors).length);
+    if (this.props.errors === "success") {
       return (
         <div className="row justify-content-center">
           <div className={"col-md-4 alert-success "} role="success">
@@ -11,7 +12,10 @@ class FlashMessage extends Component {
           </div>
         </div>
       );
-    } else if (this.props.errors && this.props.errors.status === "error") {
+    } else if (
+      Object.keys(this.props.errors).length > 0 &&
+      this.props.errors !== "cleared"
+    ) {
       return (
         <div className="row justify-content-center">
           <div className={"col-md-4 alert-danger "} role="alert">
@@ -19,7 +23,10 @@ class FlashMessage extends Component {
           </div>
         </div>
       );
-    } else {
+    } else if (
+      this.props.errors === "cleared" ||
+      this.props.errors.length <= 0
+    ) {
       return null;
     }
   }

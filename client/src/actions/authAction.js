@@ -1,5 +1,9 @@
 import axios from "axios";
-import { GET_ERRORS, SET_CURRENT_USER } from "../actions/action-types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  CLEAR_ERRORS
+} from "../actions/action-types";
 import setAuthToken from "../helpers/setAuthToken";
 import jwtDecode from "jwt-decode";
 
@@ -14,6 +18,11 @@ export const registerUser = (userData, history) => dispatch => {
   axiosInstance
     .post("/api/users/register", userData)
     .then(res => history.push("/login"))
+    .then(
+      setTimeout(() => {
+        dispatch({ type: CLEAR_ERRORS });
+      }, 5000)
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

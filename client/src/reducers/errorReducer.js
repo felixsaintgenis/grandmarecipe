@@ -1,26 +1,23 @@
 import {
   GET_ERRORS,
   SUCCESS_FETCH,
+  FAILED_FETCH,
   CLEAR_ERRORS
 } from "../actions/action-types";
 
-const initialState = null;
+const initialState = [];
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case SUCCESS_FETCH:
-      return {
-        errors: "success"
-      };
+      return "success";
+    case FAILED_FETCH:
+      return "failed";
     case GET_ERRORS:
-      return {
-        errors: action.payload,
-        status: "error"
-      };
+      return action.payload;
     case CLEAR_ERRORS:
-      return {
-        errors: "cleared"
-      };
+      return "cleared";
+
     default:
       return state;
   }

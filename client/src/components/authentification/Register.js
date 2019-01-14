@@ -37,7 +37,6 @@ class Register extends Component {
 
   render() {
     const { errors } = this.props;
-
     return (
       <div className="register">
         <div className="container">
