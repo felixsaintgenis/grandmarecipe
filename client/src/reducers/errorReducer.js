@@ -14,7 +14,8 @@ export default function(state = initialState, action) {
       };
     case GET_ERRORS:
       return {
-        errors: "error"
+        errors: action.payload,
+        status: "error"
       };
     case CLEAR_ERRORS:
       return {

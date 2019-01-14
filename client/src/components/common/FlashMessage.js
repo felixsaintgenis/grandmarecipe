@@ -11,7 +11,7 @@ class FlashMessage extends Component {
           </div>
         </div>
       );
-    } else if (this.props.errors && this.props.errors.errors === "error") {
+    } else if (this.props.errors && this.props.errors.status === "error") {
       return (
         <div className="row justify-content-center">
           <div className={"col-md-4 alert-danger "} role="alert">

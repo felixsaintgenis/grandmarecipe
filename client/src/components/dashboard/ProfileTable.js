@@ -4,7 +4,7 @@ const ProfileTable = ({ handle, country, status, skills, date, bio }) => {
   return (
     <div className="profile mt-5">
       <h2>Informations:</h2>
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th>pseudo</th>
