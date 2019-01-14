@@ -1,5 +1,4 @@
 import axios from "axios";
-import { sendFlashMessage, deleteFlashMessage } from "../actions/flash-message";
 import {
   GET_RECIPES,
   GET_RECIPE,
@@ -7,7 +6,8 @@ import {
   SUCCESS_FETCH,
   RECIPE_LOADING,
   ADD_LIKE,
-  GET_LAST_RECIPES
+  GET_LAST_RECIPES,
+  CLEAR_ERRORS
 } from "../actions/action-types";
 
 export const getAllRecipes = () => dispatch => {
@@ -100,6 +100,11 @@ export const createRecipe = (recipeData, history) => dispatch => {
       })
     )
     .then(err => (err ? history.push("/dashboard") : null))
+    .then(
+      setTimeout(() => {
+        dispatch({ type: CLEAR_ERRORS });
+      }, 5000)
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
