@@ -1,8 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 
-const router = express.Router();
-
 require("../models/user");
 require("../models/post");
 
@@ -36,7 +34,7 @@ exports.get_all_comment_of_a_recipie = (req, res) => {
     });
 };
 
-// Delete a comment by id
+// DELETE a comment by id
 
 exports.delete_a_comment = (req, res) => {
   Comment.findById(req.params.id)
@@ -45,5 +43,3 @@ exports.delete_a_comment = (req, res) => {
     })
     .catch(err => res.status(404).json({ postnotfound: "No comment found" }));
 };
-
-export default router;

@@ -133,7 +133,7 @@ export const clearCurrentProfile = () => {
 
 export const deleteAccount = () => dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
-    axios
+    axiosInstance
       .delete("/api/profile")
       .then(res =>
         dispatch({
@@ -151,13 +151,8 @@ export const deleteAccount = () => dispatch => {
 };
 
 export const getThreeLastFavorites = userId => dispatch => {
-  let axiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api/profile/"
-    /* other custom settings */
-  });
-
   axiosInstance
-    .get(`/${userId}/myfavorites/`)
+    .get(`api/profile/${userId}/myfavorites/`)
     .then(res =>
       dispatch({
         type: ADD_THREE_FAVORITES,

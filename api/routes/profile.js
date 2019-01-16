@@ -1,59 +1,35 @@
 import express from "express";
-import mongoose from "mongoose";
 import passport from "passport";
+import {
+  get_current_user_profile,
+  get_all_profiles,
+  post_information_on_your_profile,
+  get_profile_by_handle,
+  delete_your_profile,
+  get_your_favorites,
+  add_a_favorite_to_your_profile
+} from "../controllers/profileController";
 
 const router = express.Router();
 
 require("../models/user");
 require("../models/profile");
-const Profile = mongoose.model("profile");
-const User = mongoose.model("users");
-
-const validateProfileInput = require("../helpers/validation/profile-validation");
 
 // @route GET api/profile
-// @description Get current user profile information
+// @description Get current user profile
 // @access private
 
 router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const errors = {};
-
-    Profile.findOne({ user: req.user.id })
-      .populate("user", ["name", "avatar"])
-      .populate("favorites")
-      .then(profile => {
-        if (!profile) {
-          errors.noprofile = "There is no profile for this user";
-          return res.status(404).json(errors);
-        }
-        res.json(profile);
-      })
-      .catch(err => res.status(404).json(err));
-  }
+  get_current_user_profile
 );
 
 // @route   GET api/profile/all
 // @desc    Get all profiles
 // @access  Public
 
-router.get("/profiles", (req, res) => {
-  const errors = {};
-
-  Profile.find()
-    .populate("user", ["name", "avatar"])
-    .then(profiles => {
-      if (!profiles) {
-        errors.noprofile = "There are no profiles";
-        return res.status(404).json(errors);
-      }
-
-      res.json(profiles);
-    })
-    .catch(err => res.status(404).json({ profile: "There are no profiles" }));
-});
+router.get("/profiles", get_all_profiles);
 
 // @route   POST api/profile
 // @desc    Create or edit user profile
@@ -62,115 +38,35 @@ router.get("/profiles", (req, res) => {
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const { errors, isValid } = validateProfileInput(req.body);
-
-    // Check Validation
-    if (!isValid) {
-      // Return any errors with 400 status
-      return res.status(400).json(errors);
-    }
-
-    // Get fields
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.skills) profileFields.skills = req.body.skills;
-    if (req.body.country) profileFields.country = req.body.country;
-    if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.status) profileFields.status = req.body.status;
-
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      if (profile) {
-        // Update
-        Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        ).then(profile => res.json(profile));
-      } else {
-        // Create
-
-        // Check if handle exists
-        Profile.findOne({ handle: profileFields.handle }).then(profile => {
-          if (profile) {
-            errors.handle = "That handle already exists";
-            res.status(400).json(errors);
-          }
-
-          // Save Profile
-          new Profile(profileFields).save().then(profile => res.json(profile));
-        });
-      }
-    });
-  }
+  post_information_on_your_profile
 );
 
 // @route   GET api/profile/handle/:handle
 // @desc    Get profile by handle
 // @access  Public
 
-router.get("/:id/", (req, res) => {
-  const errors = {};
+router.get("/:id/", get_profile_by_handle);
 
-  Profile.findOne({ _id: req.params.id })
-    .populate("user", ["name", "avatar"])
-    .then(profile => {
-      if (!profile) {
-        errors.noprofile = "There is no profile for this user";
-        res.status(404).json(errors);
-      }
-
-      res.json(profile);
-    })
-    .catch(err => res.status(404).json(err));
-});
-
-router.post("/:userid/:recipeid/favorite/add", (req, res) => {
-  Profile.findOne({ user: req.params.userid }).then((profile, err) => {
-    if (err) {
-      console.log(err);
-      return res.send(err);
-    }
-
-    if (
-      profile.favorites.filter(item => item.toString() === req.params.recipeid)
-        .length
-    ) {
-      const itemIndex = profile.favorites.indexOf(req.params.recipeid);
-      profile.favorites.splice(itemIndex, 1);
-      profile.save().then(profile => res.json(profile));
-    } else {
-      profile.favorites.push(req.params.recipeid);
-      profile.save().then(profile => res.json(profile));
-    }
-  });
-});
+// @route   DELETE api/profile/
+// @desc    Get profile by handle
+// @access  Private
 
 router.delete(
   "/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Profile.findOneAndRemove({ user: req.user.id }).then(() => {
-      User.findOneAndRemove({ _id: req.user.id }).then(() =>
-        res.json({ success: true })
-      );
-    });
-  }
+  delete_your_profile
 );
 
-router.get("/:userid/myfavorites/", (req, res) => {
-  Profile.find({ user: req.params.userid })
-    .select({ favorites: { $slice: -3 }, _id: false })
-    .populate("favorites")
-    .then((favorites, err) => {
-      if (err) {
-        console.log(err);
-        return res.send(err);
-      }
+// @route   GET api/profile/:userid/myfavorites/
+// @desc    Get your favorites
+// @access  Public
 
-      res.json(favorites);
-    });
-});
+router.get("/:userid/myfavorites/", get_your_favorites);
+
+// @route   POST api/profile/:userid/:recipeid/favorite/add
+// @desc    Add a favorite to your profile
+// @access  Public
+
+router.post("/:userid/:recipeid/favorite/add", add_a_favorite_to_your_profile);
 
 export default router;

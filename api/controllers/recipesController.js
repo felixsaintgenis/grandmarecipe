@@ -7,7 +7,6 @@ require("../models/user");
 
 const Recipe = mongoose.model("recipes");
 const Comment = mongoose.model("comment");
-const router = express.Router();
 
 const validateRecipeInput = require("../helpers/validation/create-recipe-validation");
 
