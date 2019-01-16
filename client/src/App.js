@@ -12,7 +12,7 @@ import { clearCurrentProfile } from "./actions/profileAction";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
-import Copyright from "./components/layout/Copyright";
+import Footer from "./components/layout/Footer";
 import Register from "./components/authentification/Register";
 import Login from "./components/authentification/Login";
 import Recipes from "./components/recipes/Recipes";
@@ -89,7 +89,7 @@ class App extends Component {
                 <PrivateRoute exact path="/likes" component={MyLikes} />
               </Switch>
             </div>
-            <Copyright />
+            <Footer />
           </div>
         </Router>
       </Provider>

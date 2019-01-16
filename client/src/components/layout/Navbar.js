@@ -1,87 +1,135 @@
-import React, { Component } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { logoutUser } from "../../actions/authAction";
 import { clearCurrentProfile } from "../../actions/profileAction";
 
-class Navbar extends Component {
-  onLogoutClick(e) {
+const styles = theme => ({
+  "@global": {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
+  },
+  appBar: {
+    position: "relative"
+  },
+  appButtons: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  },
+  toolbarTitle: {
+    flex: 1
+  },
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
+      width: 900,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  }
+});
+
+function Navbar(props) {
+  const { classes } = props;
+  const { isAuthenticated } = props.auth;
+
+  const onLogoutClick = e => {
     e.preventDefault();
-    this.props.clearCurrentProfile();
-    this.props.logoutUser(this.props.history);
-  }
+    props.clearCurrentProfile();
+    props.logoutUser(props.history);
+  };
 
-  render() {
-    const { isAuthenticated } = this.props.auth;
+  const authLinks = (
+    <Toolbar>
+      <Typography
+        component={Link}
+        to="/"
+        variant="h6"
+        color="inherit"
+        noWrap
+        className={classes.toolbarTitle}
+      >
+        Grandma remedies
+      </Typography>
+      <Button component={Link} to="/recipes">
+        Find remedies
+      </Button>
+      <Button component={Link} to="/favorites" className="nav-link">
+        Favorites
+      </Button>
+      <Button component={Link} to="/dashboard" className="nav-link">
+        Profile
+      </Button>
+      <Button
+        onClick={e => onLogoutClick(e)}
+        className={classes.appButtons}
+        color="primary"
+        variant="outlined"
+      >
+        Logout
+      </Button>
+    </Toolbar>
+  );
+  const guestLinks = (
+    <Toolbar>
+      <Typography
+        component={Link}
+        to="/"
+        variant="h6"
+        color="inherit"
+        noWrap
+        className={classes.toolbarTitle}
+      >
+        Grandma remedies
+      </Typography>
+      <Button component={Link} to="/recipes">
+        Find remedies
+      </Button>
+      <Button
+        component={Link}
+        to="/Login"
+        className={classes.appButtons}
+        color="primary"
+        variant="outlined"
+      >
+        Login
+      </Button>
+      <Button
+        component={Link}
+        to="/register"
+        className={classes.appButtons}
+        color="primary"
+        variant="outlined"
+      >
+        Register
+      </Button>
+    </Toolbar>
+  );
 
-    const authLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link to="/favorites" className="nav-link">
-            Favorites
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/dashboard" className="nav-link">
-            Profile
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a
-            href=""
-            onClick={this.onLogoutClick.bind(this)}
-            className="nav-link"
-          >
-            Log out
-          </a>
-        </li>
-      </ul>
-    );
-    const guestLinks = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Sign Up
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/Login" className="nav-link">
-            Login
-          </Link>
-        </li>
-      </ul>
-    );
-    return (
-      <nav className="navbar fixed-top navbar-expand-sm navbar-dark mb-4">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            GrandMaRemedies
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-
-          <div className="collapse navbar-collapse" id="mobile-nav">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to="/recipes" className="nav-link">
-                  Find remedies
-                </Link>
-              </li>
-            </ul>
-            {isAuthenticated ? authLinks : guestLinks}
-          </div>
-        </div>
-      </nav>
-    );
-  }
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="static" color="default" className={classes.appBar}>
+        {isAuthenticated ? authLinks : guestLinks}
+      </AppBar>
+    </React.Fragment>
+  );
 }
+
+Navbar.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
   auth: state.auth
@@ -90,5 +138,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     { logoutUser, clearCurrentProfile }
-  )(Navbar)
+  )(withStyles(styles)(Navbar))
 );
