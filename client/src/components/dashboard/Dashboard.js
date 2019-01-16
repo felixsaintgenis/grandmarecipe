@@ -47,10 +47,20 @@ class Dashboard extends Component {
                   Ajouter une recette
                 </Link>
               </div>
-              <div className="mx-auto mt-5">
-                <ProfileTable handle={profile.handle} />
+            </div>
+            <div className="row">
+              <div className="mt-5">
+                <ProfileTable
+                  handle={profile.handle}
+                  country={profile.country}
+                  status={profile.status}
+                  skills={profile.skills}
+                  date={profile.date}
+                  bio={profile.bio}
+                />
               </div>
             </div>
+
             <div className="row">
               <Link to="/favorites" className="category-title mt-4">
                 Mes derniers favoris

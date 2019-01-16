@@ -3,7 +3,6 @@ import "../../css/Comment.css";
 
 const Comment = ({
   username,
-  profilePicture,
   date,
   body,
   commentUserId,

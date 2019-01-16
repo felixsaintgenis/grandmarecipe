@@ -8,6 +8,7 @@ import {
   SET_CURRENT_USER,
   GET_FAVORITES,
   TOGGLE_FAVORITE,
+  CLEAR_ERRORS,
   ADD_THREE_FAVORITES
 } from "./action-types";
 
@@ -57,6 +58,11 @@ export const createProfile = (profileData, history) => dispatch => {
   axiosInstance
     .post("/api/profile", profileData)
     .then(res => history.push("/dashboard"))
+    .then(
+      setTimeout(() => {
+        dispatch({ type: CLEAR_ERRORS });
+      }, 5000)
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
