@@ -1,56 +1,28 @@
-import express from 'express';
-import mongoose from 'mongoose';
+import express from "express";
+import {
+  get_comments_by_userid,
+  get_all_comment_of_a_recipie,
+  delete_a_comment
+} from "../controllers/postsController";
 
 const router = express.Router();
-
-require('../models/user');
-require('../models/post');
-
-const Comment = mongoose.model('comment');
 
 // @route   GET api/posts/:id
 // @desc    Get comments by user ID
 // @access  Public
 
-router.get('/:id', (req, res) => {
-  Comment.findById(req.params.id)
-    .populate('user')
-    .exec((err, comment) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json(comment);
-    });
-});
+router.get("/:id", get_comments_by_userid);
 
-// @route  GET api/posts/:id
-// @desc    Get comments by recipe
+// @route  GET api/posts/:recipeid/comments
+// @desc    Get all comments of a recipie
 // @access  Public
 
-router.get('/:recipeid/comments', (req, res) => {
-  Comment.find()
-    .where('recipe').equals(req.params.recipeid)
-    .populate('user')
-    .exec((err, comment) => {
-      if (err) {
-        return res.send(err);
-      }
-      return res.json(comment);
-    });
-});
+router.get("/:recipeid/comments", get_all_comment_of_a_recipie);
 
 // @route   DELETE api/posts/:id
-// @desc    Delete post
+// @desc    Delete a post
 // @access  Public
 
-router.delete('/delete/:id',
-  (req, res) => {
-    Comment.findById(req.params.id)
-      .then((comment) => {
-        comment.remove()
-          .then(() => res.json({ success: true }));
-      })
-      .catch(err => res.status(404).json({ postnotfound: 'No comment found' }));
-  });
+router.delete("/delete/:id", delete_a_comment);
 
 export default router;
