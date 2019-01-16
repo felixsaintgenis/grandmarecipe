@@ -112,7 +112,7 @@ function Navbar(props) {
         color="primary"
         variant="outlined"
       >
-        Register
+        Sign up
       </Button>
     </Toolbar>
   );
