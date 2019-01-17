@@ -1,0 +1,85 @@
+recipeContent = (
+        <div className="container-fluid">
+          <div className="row mt-4">
+            <div className="col-md-12 text-center">
+              {favoriteButton}
+              {likeButton}
+              <i className="fas fa-heart" />
+              {likeCount}
+            </div>
+          </div>
+          <div className="row mt-4">
+            <div className="col-md-4 mx-auto">
+              <img
+                className="img-fluid mb-4"
+                src={this.props.recipe.image_url}
+                alt=""
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12 mx-auto text-center">
+              <h2 className="section-heading text-black">Description</h2>
+              <hr className="light my-4" />
+              <p className="text-faded mb-4">
+                {this.props.recipe.product_description}
+              </p>
+            </div>
+          </div>
+          <div className="col-lg-12 mx-auto text-center">
+            <h2 className="section-heading text-black">Recipe</h2>
+            <hr className="light my-4" />
+            <p className="text-faded mb-4">
+              {this.props.recipe.product_recipe}
+            </p>
+          </div>
+
+          <div className="row">
+            <div className="col-lg-12 mx-auto text-center">
+              <h2 className="section-heading text-black">Ingredients</h2>
+              <hr className="light my-4" />
+              <p className="text-faded mb-4">{this.props.recipe.ingredients}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-12 mx-auto text-center">
+              <h2 className="section-heading text-black">Commentaires</h2>
+              <div className="comments-section">
+                <hr className="light my-4" />
+                {this.props.isAuthenticated != false ? <CommentModal /> : null}
+                {this.props.isAuthenticated != false ? (
+                  this.props.comments &&
+                  comments.map((comment, index) => {
+                    return (
+                      <Comment
+                        key={index}
+                        userId={this.props.userId}
+                        commentUserId={comment.user ? comment.user._id : null}
+                        commentId={comment._id}
+                        body={comment.body}
+                        username={
+                          comment.user
+                            ? comment.user.name
+                              ? comment.user.name
+                              : this.props.userName
+                            : null
+                        }
+                        date={
+                          comment.created_at
+                            ? comment.created_at
+                            : "à l'instant"
+                        }
+                        deleteComment={this.props.deleteComment}
+                      />
+                    );
+                  })
+                ) : (
+                  <Link to="/login" className="nav-link">
+                    Connectez vous pour voir les commentaires
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      );

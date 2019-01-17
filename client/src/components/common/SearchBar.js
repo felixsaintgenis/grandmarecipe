@@ -5,7 +5,54 @@ import makeAnimated from "react-select/lib/animated";
 import TextInput from "../common/TextInput";
 import RecipeCard from "../recipes/RecipeCard";
 import { getAllRecipes } from "../../actions/recipesAction";
+import SearchIcon from "@material-ui/icons/Search";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import InputBase from "@material-ui/core/InputBase";
+import { fade } from "@material-ui/core/styles/colorManipulator";
+import { withRouter } from "react-router";
+import { withStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 import "../../css/SearchBar.css";
+
+const styles = theme => ({
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.black, 0.1),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.black, 0.1)
+    },
+    marginRight: theme.spacing.unit * 2,
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing.unit * 3,
+      width: "auto"
+    }
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: 200
+    }
+  }
+});
 
 class SearchBar extends Component {
   constructor() {
@@ -65,6 +112,7 @@ class SearchBar extends Component {
   }
   render() {
     const { tagContent } = this.state;
+    const { classes } = this.props;
     const options = [
       {
         value: "jus",
@@ -92,54 +140,38 @@ class SearchBar extends Component {
       }
     ];
     return (
-      <div className="search-component">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <TextInput
-                placeholder="search by name"
-                name="searchBar"
-                type="text"
-                onKeyUp={this.displaySearchMatches}
-              />{" "}
-            </div>{" "}
-          </div>{" "}
-          <div className="row">
-            <div className="col-12">
-              <div className="form-group">
-                <Select
-                  value={tagContent}
-                  components={makeAnimated()}
-                  placeholder="select by tag..."
-                  options={options}
-                  onChange={this.displayTagMatches}
-                />{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-        {this.state.recipeArray.length !== 0 ? (
-          <h2> Search results for {this.state.tagContent} </h2>
-        ) : null}{" "}
-        <div className="row">
-          {" "}
-          {this.state.recipeArray &&
-            this.state.recipeArray.map((recipe, index) => {
-              return (
-                <div className="col-md-4 col-sm-12 search-results">
-                  <RecipeCard
-                    key={index}
-                    name={recipe.name}
-                    image_url={recipe.image_url}
-                    product_description={recipe.product_description}
-                    id={recipe._id}
-                  />{" "}
-                </div>
-              );
-            })}{" "}
-        </div>{" "}
-        {this.state.recipeArray.length !== 0 ? <hr /> : null}{" "}
-      </div>
+      <Grid
+        container
+        className={classes.commentContainer}
+        direction="column"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item xs={12} md={12}>
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              onKeyUp={this.displaySearchMatches}
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+            />
+          </div>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <Select
+            value={tagContent}
+            components={makeAnimated()}
+            placeholder="select by tag..."
+            options={options}
+            onChange={this.displayTagMatches}
+          />
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -148,9 +180,9 @@ const mapStateToProps = state => ({
   recipes: state.recipes
 });
 
-export default connect(
-  mapStateToProps,
-  {
-    getAllRecipes
-  }
-)(SearchBar);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getAllRecipes }
+  )(withStyles(styles)(SearchBar))
+);
