@@ -1,5 +1,6 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
+import Grid from "@material-ui/core/Grid";
 import "../../css/Recipe.css";
 
 const RecipesList = ({ recipes }) => {
@@ -10,7 +11,7 @@ const RecipesList = ({ recipes }) => {
           {recipes
             ? recipes.map(recipe => {
                 return (
-                  <div className="col-md-4 col-sm-12">
+                  <Grid item key={recipe} sm={12} md={4} lg={4}>
                     <RecipeCard
                       key={recipe._id}
                       name={recipe.name}
@@ -19,7 +20,7 @@ const RecipesList = ({ recipes }) => {
                       id={recipe._id}
                       tags={recipe.tags}
                     />
-                  </div>
+                  </Grid>
                 );
               })
             : null}

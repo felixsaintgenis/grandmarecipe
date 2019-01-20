@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Select from "react-select";
+import Select from "./Select";
 import makeAnimated from "react-select/lib/animated";
 import TextInput from "../common/TextInput";
 import RecipeCard from "../recipes/RecipeCard";
@@ -28,7 +28,6 @@ const styles = theme => ({
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing.unit * 3,
       width: "auto"
     }
   },
@@ -64,6 +63,7 @@ class SearchBar extends Component {
     };
     this.displaySearchMatches = this.displaySearchMatches.bind(this);
     this.displayTagMatches = this.displayTagMatches.bind(this);
+    this.handleTagChange = this.handleTagChange.bind(this);
   }
 
   componentDidMount() {
@@ -98,10 +98,14 @@ class SearchBar extends Component {
     });
   }
 
-  async displayTagMatches(tagContent) {
+  async handleTagChange(tagContent) {
     await this.setState({
-      tagContent: tagContent.value
+      tagContent: tagContent
     });
+    this.displayTagMatches();
+  }
+
+  async displayTagMatches() {
     const newRecipeArray = await this.searchWithTag(
       this.state.tagContent,
       this.props.recipes.recipes
@@ -110,44 +114,13 @@ class SearchBar extends Component {
       recipeArray: newRecipeArray
     });
   }
+
   render() {
-    const { tagContent } = this.state;
     const { classes } = this.props;
-    const options = [
-      {
-        value: "jus",
-        label: "jus"
-      },
-      {
-        value: "detox",
-        label: "detox"
-      },
-      {
-        value: "antioxidant",
-        label: "antioxidant"
-      },
-      {
-        value: "smoothie",
-        label: "smoothie"
-      },
-      {
-        value: "thé",
-        label: "thé"
-      },
-      {
-        value: "energy",
-        label: "energy"
-      }
-    ];
+
     return (
-      <Grid
-        container
-        className={classes.commentContainer}
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
-        <Grid item xs={12} md={12}>
+      <Grid container direction="row" justify="left" alignItems="left">
+        <Grid xs={6}>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -161,15 +134,34 @@ class SearchBar extends Component {
               }}
             />
           </div>
+          <Grid xs={6}>
+            <Select
+              onKeyUp={this.displayTagMatches}
+              handleTagChange={this.handleTagChange}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={12}>
-          <Select
-            value={tagContent}
-            components={makeAnimated()}
-            placeholder="select by tag..."
-            options={options}
-            onChange={this.displayTagMatches}
-          />
+        <Grid>
+          {this.state.recipeArray.length !== 0 ? (
+            <h3>Search results {this.state.tagContent}</h3>
+          ) : null}
+        </Grid>
+        <Grid container direction="row" md={12}>
+          {this.state.recipeArray &&
+            this.state.recipeArray.map((recipe, index) => {
+              return (
+                <Grid item key={recipe} sm={12} md={4} lg={4}>
+                  <RecipeCard
+                    key={recipe._id}
+                    name={recipe.name}
+                    image_url={recipe.image_url}
+                    product_description={recipe.product_description}
+                    id={recipe._id}
+                    tags={recipe.tags}
+                  />
+                </Grid>
+              );
+            })}
         </Grid>
       </Grid>
     );

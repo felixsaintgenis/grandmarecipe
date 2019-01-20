@@ -19,7 +19,9 @@ const styles = theme => ({
   card: {
     maxWidth: 400,
     marginTop: "10px",
-    marginBottom: "10px"
+    marginBottom: "10px",
+    marginLeft: "10px",
+    marginRight: "10px"
   },
   media: {
     height: 0,
@@ -60,11 +62,6 @@ const RecipeCard = ({
               R
             </Avatar>
           }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
           title={name}
           subheader={tags}
         />
@@ -74,11 +71,7 @@ const RecipeCard = ({
             {product_description}
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
-        </CardActions>
+        <CardActions className={classes.actions} disableActionSpacing />
       </Card>
     </Link>
   );
